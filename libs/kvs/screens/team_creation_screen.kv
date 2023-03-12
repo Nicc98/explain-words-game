@@ -1,0 +1,86 @@
+#: import TeamCreationScreen libs.baseclass.screens.team_creation_screen.TeamCreationScreen
+
+<TeamCreationScreen>:
+    name: "Team Creation"
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: "10dp"
+        spacing: "10dp"
+        
+        MDBoxLayout:
+            orientation: 'vertical'
+            size_hint_y: 0.3
+            padding: "10dp"
+            spacing: "10dp"
+
+            MDIconButton:
+                icon: 'arrow-left'
+                theme_text_color: "Custom"
+                text_color: app.storage_helper.color('light_pink')
+                user_font_size: 32
+                pos_hint: {"center_y": 0.5, "left": 1}
+                on_press: app.root.set_current_screen("Home")
+
+            MDLabel:
+                text: "Izveido komandas:"
+                halign: 'center'
+                valign: 'center'
+                color: app.storage_helper.color('light_pink')
+                font_size: 64
+                bold: True
+
+        MDBoxLayout:
+            orientation: 'vertical'
+            size_hint_y: 0.5
+            padding: "10dp"
+            spacing: "5dp"
+
+            # Team input
+            MDBoxLayout:
+                MDTextField:
+                    id: team_name_input
+                    hint_text: "Komandas nosaukums"
+                    max_text_length: 20
+                    multiline: False
+                    color_mode: 'Custom'
+                    line_color: app.storage_helper.color('blue')
+                    fill_color: app.storage_helper.color('light_pink')
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    mode: 'round'
+                
+                MDIconButton:
+                    icon: 'arrow-right-bold'
+                    theme_text_color: "Custom"
+                    text_color: app.storage_helper.color('light_pink')
+                    user_font_size: 32
+                    pos_hint: {"center_y": 0.5, "left": 1}
+                    on_press: root.add_team()
+
+            # List of added teams
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: "8dp"
+                spacing: "8dp"
+                md_bg_color: app.storage_helper.color('light_pink')
+
+                MDLabel:
+                    text: "Komandas:"
+                    adaptive_height: True
+
+                ScrollView:
+
+                    MDList:
+                        id: team_list
+
+        AnchorLayout:
+            size_hint_y: 0.5
+
+            MDRoundFlatButton:
+                id: new_game_btn
+                text: "Spēlēt"
+                font_size: 48
+                text_color: "#8c839e"
+                line_width: 2
+                line_color: "#5d6991"
+                on_press: app.root.set_current_screen("Game")

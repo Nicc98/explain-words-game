@@ -1,0 +1,45 @@
+#: import OptionsNavigationDrawer libs.baseclass.components.settings_dropdown.OptionsNavigationDrawer
+#: import OptionsItem libs.baseclass.components.settings_dropdown.OptionsItem
+
+<OptionsItem>:
+
+    Spinner:
+        text: root.text
+        font_size: 12
+        line_width: 1
+        values: root.values
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        open_context: 'bottom'
+        text_color: app.storage_helper.color('blue')
+        background_color: app.storage_helper.color('light_pink')
+        background_normal: ''
+
+        IconLeftWidget:
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            icon: root.icon
+            text_color: app.storage_helper.color('blue')
+            # disabled: True
+
+<OptionsNavigationDrawer>:
+    orientation: "vertical"
+    padding: "8dp"
+    spacing: "8dp"
+    md_bg_color: app.storage_helper.color('light_pink')
+
+    MDLabel:
+        text: "Iestatījumi"
+        adaptive_height: True
+
+    ScrollView:
+
+        MDList:
+
+            OptionsItem:
+                icon: "notebook"
+                text: "Kategorijas"
+                values: ['1', '2']
+
+            OptionsItem:
+                icon: "head-lightbulb-outline"
+                text: "Komandas"
+                values: ['1', '2']               

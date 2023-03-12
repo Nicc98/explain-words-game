@@ -1,0 +1,66 @@
+#: import HomeScreen libs.baseclass.screens.home_screen.HomeScreen
+
+<HomeScreen>:
+    name: "Home"
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: "10dp"
+        spacing: "10dp"
+        
+        MDBoxLayout:
+            orientation: 'vertical'
+            size_hint_y: 0.3
+            padding: "10dp"
+            spacing: "10dp"
+
+            MDIconButton:
+                icon: 'menu'
+                theme_text_color: "Custom"
+                text_color: app.storage_helper.color('light_pink')
+                user_font_size: 32
+                pos_hint: {"center_y": 0.5, "left": 1}
+                on_press: app.root.ids.nav_drawer.set_state("open")
+
+            MDLabel:
+                text: "Vārdu Spēle"
+                halign: 'center'
+                valign: 'center'
+                color: app.storage_helper.color('light_pink')
+                font_size: 64
+                bold: True
+
+        MDBoxLayout:
+            orientation: 'vertical'
+            size_hint_y: 0.5
+            padding: "10dp"
+            spacing: "5dp"
+
+            MDLabel:
+                text: "Kategorija:"
+                color: app.storage_helper.color('pink')
+                font_size: 32
+                bold: True
+                halign: 'center'
+
+            MDLabel:
+                id: home_category_label
+                text: "Random"
+                color: app.storage_helper.color('pink')
+                font_size: 32
+                # bold: True
+                halign: 'center'
+            
+        AnchorLayout:
+            size_hint_y: 0.5
+
+            MDRoundFlatButton:
+                id: new_game_btn
+                text: "Jauna Spēle"
+                font_size: 48
+                text_color: app.storage_helper.color('light_blue')
+                line_width: 2
+                line_color: app.storage_helper.color('blue')
+                on_press: app.root.set_current_screen("Team Creation")
+
+
