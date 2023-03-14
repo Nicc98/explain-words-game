@@ -1,0 +1,93 @@
+#: import GameScreen View.GameScreen.game_screen.GameScreen
+
+<GameScreen>:
+    name: "Game"
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: "10dp"
+        spacing: "10dp"
+        
+        # Top part
+        MDBoxLayout:
+            size_hint_y: 0.1
+            orientation: 'vertical'
+
+            MDLabel:
+                id: round_label
+                text: "Round 1"
+                font_size: 72
+                halign: 'center'
+                valign: 'center'
+                bold: True
+                color: "#ffffff"
+
+            MDLabel:
+                id: team_label
+                text: "Komanda: "
+                font_size: 48
+                halign: 'center'
+                valign: 'center'
+                bold: True
+                color: "#ffffff"
+
+        # Mid part
+        MDBoxLayout:
+            size_hint_y: 0.8
+
+            MDBoxLayout:
+                orientation: 'vertical'
+
+                canvas.before:
+                    Color:
+                        rgba: app.storage_manager.get_color('light_blue')
+                    
+                MDSwiper:
+                    id: card_swiper
+                    on_swipe: root.show_new_word()
+                    on_swipe_right: root.add_score()
+
+                    MDSwiperItem:
+
+                        MDLabel:
+                            id: guess_word
+                            text: ""
+                            halign: 'center'
+                            valign: 'center'
+                            color: "#ffffff"
+                            font_size: 64
+                            bold: True
+
+            MDBoxLayout:
+                size_hint_x: 0.1
+                orientation: 'vertical'
+
+                MDLabel:
+                    size_hint_y: 0.1
+                    id: timer_label
+                    text: "100"
+                    color: "#ffffff"
+                    font_size: 32
+                    bold: True
+
+                MDProgressBar:
+                    size_hint_y: 0.9
+                    id: timer_bar
+                    orientation: "vertical"
+                    value: 100
+                    color: (0, 1, 0, 0.8)
+
+        # Bottom part
+        MDBoxLayout:
+            size_hint_y: 0.1
+            orientation: 'vertical'
+
+            MDRoundFlatButton:
+                id: start_game_btn
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                text: "Sākt"
+                font_size: 48
+                text_color: app.storage_manager.get_color('light_blue')
+                line_width: 2
+                line_color: app.storage_manager.get_color('blue')
+                on_release: root.start_game()

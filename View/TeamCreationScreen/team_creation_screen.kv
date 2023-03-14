@@ -1,4 +1,4 @@
-#: import TeamCreationScreen libs.baseclass.screens.team_creation_screen.TeamCreationScreen
+#: import TeamCreationScreen View.TeamCreationScreen.team_creation_screen.TeamCreationScreen
 
 <TeamCreationScreen>:
     name: "Team Creation"
@@ -10,14 +10,15 @@
         
         MDBoxLayout:
             orientation: 'vertical'
-            size_hint_y: 0.3
+            size_hint_y: 0.2
             padding: "10dp"
             spacing: "10dp"
 
             MDIconButton:
                 icon: 'arrow-left'
                 theme_text_color: "Custom"
-                text_color: app.storage_helper.color('light_pink')
+                md_bg_color: 0, 0, 0, .2
+                text_color: app.storage_manager.get_color('light_pink')
                 user_font_size: 32
                 pos_hint: {"center_y": 0.5, "left": 1}
                 on_press: app.root.set_current_screen("Home")
@@ -26,47 +27,54 @@
                 text: "Izveido komandas:"
                 halign: 'center'
                 valign: 'center'
-                color: app.storage_helper.color('light_pink')
+                color: app.storage_manager.get_color('light_pink')
                 font_size: 64
                 bold: True
 
+        # Team input and display section
         MDBoxLayout:
             orientation: 'vertical'
-            size_hint_y: 0.5
             padding: "10dp"
             spacing: "5dp"
 
             # Team input
             MDBoxLayout:
+                size_hint_y: 0.2
+
                 MDTextField:
                     id: team_name_input
                     hint_text: "Komandas nosaukums"
                     max_text_length: 20
                     multiline: False
                     color_mode: 'Custom'
-                    line_color: app.storage_helper.color('blue')
-                    fill_color: app.storage_helper.color('light_pink')
+                    line_color: app.storage_manager.get_color('blue')
+                    fill_color: app.storage_manager.get_color('light_pink')
                     pos_hint: {"center_x": 0.5, "center_y": 0.5}
                     mode: 'round'
                 
                 MDIconButton:
-                    icon: 'arrow-right-bold'
+                    icon: 'content-save-plus-outline'
                     theme_text_color: "Custom"
-                    text_color: app.storage_helper.color('light_pink')
+                    text_color: app.storage_manager.get_color('light_pink')
                     user_font_size: 32
                     pos_hint: {"center_y": 0.5, "left": 1}
                     on_press: root.add_team()
 
             # List of added teams
             MDBoxLayout:
+                size_hint_y: 0.8
                 orientation: "vertical"
                 padding: "8dp"
                 spacing: "8dp"
-                md_bg_color: app.storage_helper.color('light_pink')
+                md_bg_color: app.storage_manager.get_color('light_pink')
 
                 MDLabel:
+                    size_hint_y: 0.1
                     text: "Komandas:"
-                    adaptive_height: True
+                    font_size: 32
+                    halign: 'center'
+                    valign: 'center'
+                    bold: True
 
                 ScrollView:
 
@@ -74,13 +82,13 @@
                         id: team_list
 
         AnchorLayout:
-            size_hint_y: 0.5
+            size_hint_y: 0.1
 
             MDRoundFlatButton:
                 id: new_game_btn
                 text: "Spēlēt"
                 font_size: 48
-                text_color: "#8c839e"
+                text_color: app.storage_manager.get_color('light_blue')
                 line_width: 2
-                line_color: "#5d6991"
-                on_press: app.root.set_current_screen("Game")
+                line_color: app.storage_manager.get_color('blue')
+                on_press: root.go_to_game()

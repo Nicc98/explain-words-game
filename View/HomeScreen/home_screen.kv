@@ -1,7 +1,20 @@
-#: import HomeScreen libs.baseclass.screens.home_screen.HomeScreen
+# Import Python files
+#: import HomeScreen View.HomeScreen.home_screen.HomeScreen
+
+# Import Kivy files
+#: include View/HomeScreen/components/setting_dropdown.kv
 
 <HomeScreen>:
     name: "Home"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+
+        canvas.before:
+            Color:
+                rgba: app.storage_manager.get_color('light_pink')
+
+        OptionsNavigationDrawer:
 
     MDBoxLayout:
         orientation: 'vertical'
@@ -17,16 +30,17 @@
             MDIconButton:
                 icon: 'menu'
                 theme_text_color: "Custom"
-                text_color: app.storage_helper.color('light_pink')
+                md_bg_color: 0, 0, 0, .2
+                text_color: app.storage_manager.get_color('light_pink')
                 user_font_size: 32
                 pos_hint: {"center_y": 0.5, "left": 1}
-                on_press: app.root.ids.nav_drawer.set_state("open")
+                on_press: nav_drawer.set_state("open")
 
             MDLabel:
                 text: "Vārdu Spēle"
                 halign: 'center'
                 valign: 'center'
-                color: app.storage_helper.color('light_pink')
+                color: app.storage_manager.get_color('light_pink')
                 font_size: 64
                 bold: True
 
@@ -38,29 +52,33 @@
 
             MDLabel:
                 text: "Kategorija:"
-                color: app.storage_helper.color('pink')
-                font_size: 32
+                color: app.storage_manager.get_color('pink')
+                font_size: 64
                 bold: True
                 halign: 'center'
+                valign: 'bottom'
 
             MDLabel:
                 id: home_category_label
                 text: "Random"
-                color: app.storage_helper.color('pink')
-                font_size: 32
-                # bold: True
+                color: app.storage_manager.get_color('pink')
+                font_size: 48
+                bold: True
                 halign: 'center'
+                valign: 'top'
             
-        AnchorLayout:
+        MDBoxLayout:
             size_hint_y: 0.5
+            orientation: 'vertical'
 
             MDRoundFlatButton:
                 id: new_game_btn
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                 text: "Jauna Spēle"
                 font_size: 48
-                text_color: app.storage_helper.color('light_blue')
+                text_color: app.storage_manager.get_color('light_blue')
                 line_width: 2
-                line_color: app.storage_helper.color('blue')
+                line_color: app.storage_manager.get_color('blue')
                 on_press: app.root.set_current_screen("Team Creation")
 
 

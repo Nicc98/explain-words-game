@@ -1,26 +1,30 @@
 from kivymd.app import MDApp
 from kivy.lang import Builder
-from kivy.storage.jsonstore import JsonStore
+from kivy.core.window import Window
 
-from libs.baseclass.app_layout import AppLayout
-from libs.helpers.config_setup import ConfigSetup
-from libs.helpers.data_helper import StorageHelper
+import os
+
+from View.AppLayout.app_layout import AppLayout
+from View.common.helpers.storage_manager import StorageManager
+
+# Setup
+
+Window.size = (400, 700)
 
 class ExplainWordsGame(MDApp):
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        # self.theme_cls.material_style = "M3"
+        # self.theme_cls.theme_style = "Light"
+        # self.theme_cls.primary_palette = "Indigo"
+        self.storage_manager = StorageManager()
+        self.start_screen_path = os.path.join("View", "AppLayout", "app_layout.kv")
+
     def build(self):
-        self.storage = JsonStore('explain_words_game.json')
-        self.storage_helper = StorageHelper(storage = self.storage)
-        self.storage_helper.load_colors()
-        Builder.load_file("main.kv")
+        Builder.load_file(self.start_screen_path)
         return AppLayout()
-    
-    def load_colors(self):
-        self.storage
-    
-if __name__ == "__main__":
 
-    config = ConfigSetup()
-    config.change_screen_size()
+# Run App
 
-    ExplainWordsGame().run()
+ExplainWordsGame().run()
