@@ -54,6 +54,7 @@
                 md_bg_color: app.storage_manager.get_color('light_blue')
 
                 MDBoxLayout:
+                    size_hint: 0.8, 0.2
                     orientation: "vertical"
                     pos_hint: {"center_x": .5, "center_y": .5}
                     md_bg_color: app.storage_manager.get_color('blue')
@@ -61,9 +62,11 @@
                     MDRaisedButton:
                         text: "Izlaist"
                         md_bg_color: 1, 0, 0, 0.7
+                        pos_hint: {"center_x": .5, "center_y": .5}
                         on_release: root.show_new_word()
 
                 MDBoxLayout:
+                    size_hint: 0.8, 0.6
                     orientation: "vertical"
                     pos_hint: {"center_x": .5, "center_y": .5}
                     md_bg_color: app.storage_manager.get_color('blue')
@@ -77,12 +80,14 @@
                         bold: True
 
                 MDBoxLayout:
+                    size_hint: 0.8, 0.75
                     orientation: "vertical"
                     pos_hint: {"center_x": .5, "center_y": .5}
                     md_bg_color: app.storage_manager.get_color('blue')
 
                     MDRaisedButton:
                         text: "Uzminēts"
+                        pos_hint: {"center_x": .5, "center_y": .5}
                         md_bg_color: 0, 1, 0, 0.7
                         on_release: root.add_score()
                 

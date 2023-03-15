@@ -19,6 +19,7 @@ class GameScreen(MDScreen):
         # game instance
         self.game_ongoing = False
         self.current_team_index = 0
+        self.current_team_score = 0
         # Words
         self.words = [
             "Abols", "Kaposts", "Pica", "Saldejums",
@@ -30,14 +31,14 @@ class GameScreen(MDScreen):
     def on_enter(self, *args) -> None:
         self.ids.timer_label.text = str(self.round_length)
         team_name = self.app.storage_manager.get_value('teams')[self.current_team_index]['name']
-        self.ids.team_label.text = f"Komanda: {team_name}"
+        self.ids.team_label.text = team_name
 
     def start_game(self):
+        self.game_ongoing = True
         self.show_new_word()
         self.timer_tick = self.round_length / 100 / 10
         Clock.schedule_interval(self.start_timer, 0.1)
         self.ids.start_game_btn.disabled = True
-        self.game_ongoing = True
 
     def start_timer(self, *args):
         if not self.game_ongoing: return
@@ -54,28 +55,21 @@ class GameScreen(MDScreen):
 
             case 0:
                 self.game_ongoing = False
-            
+    
     def add_score(self):
         if not self.game_ongoing: return
-        # score = self.app.storage_manager.get_value('teams')[self.current_team_index]['total_score']
-        # self.app.storage_manager.set_value('teams', value[])[self.current_team_index]['total_score'] += 1
-        # print(self.app.storage_manager.get_value('teams')[self.current_team_index]['total_score'])
-        # self.show_new_word()
+        self.current_team_score += 1
+        print(f"Score: {self.current_team_score}")
+        self.show_new_word()
     
     def show_new_word(self):
         if not self.game_ongoing: return
         self.ids.guess_word.text = random.choice(self.words)
 
-    ###
-
-    # def on_touch_down(self, touch):
-    #     self.initial_swipe_x = touch.x
-
-    # def on_touch_up(self, touch):
-    #     if touch.x - self.initial_swipe_x > some-value:
-    #         # do something
-    #     elif touch.x - self.initial_swipe_x > some-value:
-    #         # do other thing
+    def on_exit(self):
+        # score = self.app.storage_manager.get_value('teams')[self.current_team_index]['total_score']
+        # self.app.storage_manager.set_value('teams', value[])[self.current_team_index]['total_score'] += 1
+        # print(self.app.storage_manager.get_value('teams')[self.current_team_index]['total_score'])
 
     ###
 
