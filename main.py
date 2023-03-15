@@ -15,8 +15,8 @@ class ExplainWordsGame(MDApp):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        # self.theme_cls.material_style = "M3"
-        # self.theme_cls.theme_style = "Light"
+        self.theme_cls.material_style = "M3"
+        self.theme_cls.theme_style = "Light"
         # self.theme_cls.primary_palette = "Indigo"
         self.storage_manager = StorageManager()
         self.start_screen_path = os.path.join("View", "AppLayout", "app_layout.kv")

@@ -34,5 +34,6 @@ class TeamCreationScreen(MDScreen):
     
     def store_teams(self):
         self.app.storage_manager.set_value('teams', self.all_teams)
+        print(f"All Teams: {self.app.storage_manager.get('teams')}")
 
 

@@ -12,7 +12,6 @@ class StorageManager():
         self.set_value('light_blue', (0.55, 0.51, 0.62, 1))
         self.set_value('pink', (0.9, 0.8, 0.8, 1))
         self.set_value('light_pink', (0.89, 0.8, 0.75, 1))
-        self.set_value('round_length', 60)
 
     def get(self, key: str):
         return self.storage.get(key)

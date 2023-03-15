@@ -13,35 +13,86 @@ class GameScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
+        # Timing
+        self.round_length = 60 # in seconds
+        self.timer_tick = 1
+        # game instance
+        self.game_ongoing = False
+        self.current_team_index = 0
+        # Words
         self.words = [
             "Abols", "Kaposts", "Pica", "Saldejums",
             "Burgers", "Burrito", "Zupa", "Sacepums"
         ]
         self.max_words = 8
         self.words_pulled = 0
-        self.current_team_index = 0
     
     def on_enter(self, *args) -> None:
-        print(f"All Teams: {self.app.storage_manager.get('teams')}")
-        round_length = self.app.storage_manager.get_value('round_length')
-        self.ids.timer_bar.value = round_length
-        self.ids.timer_label.text = str(round_length)
+        self.ids.timer_label.text = str(self.round_length)
         team_name = self.app.storage_manager.get_value('teams')[self.current_team_index]['name']
         self.ids.team_label.text = f"Komanda: {team_name}"
-        self.show_new_word()
 
     def start_game(self):
-        Clock.schedule_interval(self.start_timer, 1)
+        self.show_new_word()
+        self.timer_tick = self.round_length / 100 / 10
+        Clock.schedule_interval(self.start_timer, 0.1)
         self.ids.start_game_btn.disabled = True
+        self.game_ongoing = True
 
     def start_timer(self, *args):
-        self.ids.timer_bar.value -= 1
+        if not self.game_ongoing: return
+        self.ids.timer_bar.value -= self.timer_tick
         current_length = self.ids.timer_bar.value
-        self.ids.timer_label.text = str(current_length)
+        self.ids.timer_label.text = str(int(current_length))
+            
+        match current_length:
+            case 30:
+                self.ids.timer_bar.color = (0.1, 0.5, 0.5, 0.7)
 
+            case 15:
+                self.ids.timer_bar.color = (1, 0, 0, 0.7)
+
+            case 0:
+                self.game_ongoing = False
+            
     def add_score(self):
-        self.app.storage_manager.set_value('teams')[self.current_team_index]['total_score'] += 1
-        print(self.app.storage_manager.get_value('teams')[self.current_team_index]['total_score'])
+        if not self.game_ongoing: return
+        # score = self.app.storage_manager.get_value('teams')[self.current_team_index]['total_score']
+        # self.app.storage_manager.set_value('teams', value[])[self.current_team_index]['total_score'] += 1
+        # print(self.app.storage_manager.get_value('teams')[self.current_team_index]['total_score'])
+        # self.show_new_word()
     
     def show_new_word(self):
+        if not self.game_ongoing: return
         self.ids.guess_word.text = random.choice(self.words)
+
+    ###
+
+    # def on_touch_down(self, touch):
+    #     self.initial_swipe_x = touch.x
+
+    # def on_touch_up(self, touch):
+    #     if touch.x - self.initial_swipe_x > some-value:
+    #         # do something
+    #     elif touch.x - self.initial_swipe_x > some-value:
+    #         # do other thing
+
+    ###
+
+    # def animate_widget_removal(self, wid):
+    #     # animate shrinking widget width
+    #     anim = Animation(width=0)
+    #     anim.bind(on_complete=self.do_actual_remove)
+    #     anim.start(wid)
+
+    # def remove_word_card(self, anim, wid):
+    #     # actually remove the shrunken widget
+    #     self.root.ids.order_list.remove_widget(wid)
+
+    # def add_word_card(self,image):
+    #     i = Item()
+    #     i.image=image
+    #     i.opacity = 0
+    #     self.ids.order_list.add_widget(i)
+    #     anim = Animation(opacity=1)
+    #     anim.start(i)
