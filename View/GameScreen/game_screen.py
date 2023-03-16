@@ -101,15 +101,13 @@ class GameScreen(MDScreen):
             self.dialog = MDDialog(
                 title = f"Round {self.current_round_number}",
                 radius = [10, 10, 10, 10],
-                type = "custom",
-                content_cls = BetweenRoundsContent(),
-                buttons=[
+                # type = "custom",
+                # content_cls = BetweenRoundsContent(),
+                buttons = [
                     MDFlatButton(
                         text = "Turpināt"
-                        # theme_text_color="Custom",
-                        # text_color=self.theme_cls.primary_color,
-                    ),
-                ],
+                    )
+                ]
             )
         self.dialog.open()
     ###
