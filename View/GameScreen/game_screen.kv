@@ -17,7 +17,7 @@
             # Round number, current team
             MDLabel:
                 id: round_label
-                text: "Round 1"
+                text: "Round " + root.current_round_number
                 font_size: 72
                 halign: 'center'
                 valign: 'center'
@@ -47,48 +47,50 @@
             padding: "10dp"
             spacing: "10dp"
 
-            # Game card part
+            # Filler
+            MDBoxLayout:
+                size_hint_x: 0.1
+                orientation: 'vertical'
+
+            # Game card and buttons
             MDBoxLayout:
                 orientation: 'vertical'
                 spacing: "10dp"
-                md_bg_color: app.storage_manager.get_color('light_blue')
 
                 MDBoxLayout:
-                    size_hint: 0.8, 0.2
+                    size_hint: 0.8, 0.5
                     orientation: "vertical"
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    md_bg_color: app.storage_manager.get_color('blue')
+
+                    MDCard:
+
+                        MDLabel:
+                            id: guess_word
+                            text: root.no_word_text
+                            halign: 'center'
+                            valign: 'center'
+                            font_size: 64
+                            bold: True
+
+                MDBoxLayout:
+                    size_hint: 0.8, 0.1
+                    spacing: "10dp"
+                    pos_hint: {"center_x": .5, "center_y": .5}
 
                     MDRaisedButton:
+                        id: word_skipped_btn
                         text: "Izlaist"
-                        md_bg_color: 1, 0, 0, 0.7
-                        pos_hint: {"center_x": .5, "center_y": .5}
+                        bold: True
+                        pos_hint: {"center_x": 0.25, "center_y": 0.5}
+                        size_hint: 0.5, 0.5
                         on_release: root.show_new_word()
 
-                MDBoxLayout:
-                    size_hint: 0.8, 0.6
-                    orientation: "vertical"
-                    pos_hint: {"center_x": .5, "center_y": .5}
-                    md_bg_color: app.storage_manager.get_color('blue')
-
-                    MDLabel:
-                        id: guess_word
-                        text: "- - -"
-                        halign: 'center'
-                        valign: 'center'
-                        font_size: 64
-                        bold: True
-
-                MDBoxLayout:
-                    size_hint: 0.8, 0.75
-                    orientation: "vertical"
-                    pos_hint: {"center_x": .5, "center_y": .5}
-                    md_bg_color: app.storage_manager.get_color('blue')
-
                     MDRaisedButton:
+                        id: word_guessed_btn
                         text: "Uzminēts"
-                        pos_hint: {"center_x": .5, "center_y": .5}
-                        md_bg_color: 0, 1, 0, 0.7
+                        bold: True
+                        pos_hint: {"center_x": 0.25, "center_y": 0.5}
+                        size_hint: 0.5, 0.5
                         on_release: root.add_score()
                 
             # Time progress bar and label
@@ -112,11 +114,13 @@
                     size_hint: 0.5, 0.9
                     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                     orientation: "vertical"
-                    value: 100
-                    color: (0, 1, 0, 0.7)
+                    value: 60
+                    max: 60
+                    color: "#00FF00"
 
         ### Bottom
         MDBoxLayout:
+            id: bottom_layout
             size_hint_y: 0.1
             orientation: 'vertical'
 

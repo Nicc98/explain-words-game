@@ -1,8 +1,10 @@
 from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
 from kivy.clock import Clock
+from kivymd.uix.button import MDFlatButton
+from kivymd.uix.dialog import MDDialog
 
-import random
+from View.BetweenRoundsContent.between_rounds_content import BetweenRoundsContent
 
 class GameScreen(MDScreen):
 
@@ -13,64 +15,103 @@ class GameScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
-        # Timing
-        self.round_length = 60 # in seconds
-        self.timer_tick = 1
-        # game instance
+        self.game_manager = self.app.game_manager
         self.game_ongoing = False
+        self.current_round_number = "1"
+        self.current_team_name = ""
         self.current_team_index = 0
-        self.current_team_score = 0
-        # Words
-        self.words = [
-            "Abols", "Kaposts", "Pica", "Saldejums",
-            "Burgers", "Burrito", "Zupa", "Sacepums"
-        ]
-        self.max_words = 8
-        self.words_pulled = 0
+        self.counter = 0
+        self.no_word_text = "- - -"
+        self.dialog = None
     
     def on_enter(self, *args) -> None:
-        self.ids.timer_label.text = str(self.round_length)
-        team_name = self.app.storage_manager.get_value('teams')[self.current_team_index]['name']
-        self.ids.team_label.text = team_name
+        self.current_team_name = self.game_manager.get_team_by_index(self.current_team_index).name
+        self.ids.team_label.text = self.current_team_name
+        self.game_manager.add_team_round(self.current_team_name, self.current_round_number)
 
     def start_game(self):
         self.game_ongoing = True
         self.show_new_word()
-        self.timer_tick = self.round_length / 100 / 10
-        Clock.schedule_interval(self.start_timer, 0.1)
-        self.ids.start_game_btn.disabled = True
+        # Start timer
+        self.round_timer = Clock.schedule_interval(self.update_round, 0.1)
+        # Disable elements
+        self.ids.bottom_layout.remove_widget(self.ids.start_game_btn)
+        self.counter = 0
 
-    def start_timer(self, *args):
+    ### Handle game updates
+
+    def update_round(self, *args):
         if not self.game_ongoing: return
-        self.ids.timer_bar.value -= self.timer_tick
-        current_length = self.ids.timer_bar.value
-        self.ids.timer_label.text = str(int(current_length))
-            
-        match current_length:
-            case 30:
-                self.ids.timer_bar.color = (0.1, 0.5, 0.5, 0.7)
 
-            case 15:
-                self.ids.timer_bar.color = (1, 0, 0, 0.7)
+        self.ids.timer_bar.value -= 0.1
+        current_time = self.ids.timer_bar.value
 
-            case 0:
-                self.game_ongoing = False
+        # Check for stop
+        if current_time <= 0: self.stop_round_actions()
+        
+        # Update label
+        self.handle_timer_label(current_time)
+
+        # Update progress bar
+        self.handle_timer_bar(current_time)
+
+    def stop_round_actions(self):
+        self.round_timer.cancel()
+        self.game_ongoing = False
+        self.ids.timer_bar.value = 0
+        self.ids.guess_word.text = self.no_word_text
+        self.ids.timer_label.text = "0"
+        self.show_round_info()
+    
+    def handle_timer_label(self, current_time):
+        self.counter += 1
+        if self.counter == 10:
+            self.counter = 0
+            self.ids.timer_label.text = str(int(current_time))
+
+    def handle_timer_bar(self, current_time):
+        color_map = {
+            0.25: "#FF0000",  # Red
+            0.5:  "#FFFF00"  # Yellow
+        }
+
+        for threshold, color in color_map.items():
+            if current_time / 60.0 <= threshold:
+                self.ids.timer_bar.color = color
+                break
     
     def add_score(self):
         if not self.game_ongoing: return
-        self.current_team_score += 1
-        print(f"Score: {self.current_team_score}")
-        self.show_new_word()
+
+        self.show_new_word(True)
+        self.game_manager.increase_team_round_score(self.current_team_name, self.current_round_number)
+        print(f"Score: {self.game_manager.get_team_round_score(self.current_team_name, self.current_round_number)}")
     
-    def show_new_word(self):
+    def show_new_word(self, remove_word: bool = False):
         if not self.game_ongoing: return
-        self.ids.guess_word.text = random.choice(self.words)
 
-    def on_exit(self):
-        # score = self.app.storage_manager.get_value('teams')[self.current_team_index]['total_score']
-        # self.app.storage_manager.set_value('teams', value[])[self.current_team_index]['total_score'] += 1
-        # print(self.app.storage_manager.get_value('teams')[self.current_team_index]['total_score'])
+        word = self.game_manager.get_new_word(remove_word)
+        if word == -1:
+            self.stop_round_actions()
+        else:
+            self.ids.guess_word.text = word
 
+    def show_round_info(self):
+        if not self.dialog:
+            self.dialog = MDDialog(
+                title = f"Round {self.current_round_number}",
+                radius = [10, 10, 10, 10],
+                type = "custom",
+                content_cls = BetweenRoundsContent(),
+                buttons=[
+                    MDFlatButton(
+                        text = "Turpināt"
+                        # theme_text_color="Custom",
+                        # text_color=self.theme_cls.primary_color,
+                    ),
+                ],
+            )
+        self.dialog.open()
     ###
 
     # def animate_widget_removal(self, wid):

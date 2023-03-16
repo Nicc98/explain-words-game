@@ -6,6 +6,7 @@ import os
 
 from View.AppLayout.app_layout import AppLayout
 from View.common.helpers.storage_manager import StorageManager
+from View.common.helpers.game_manager import GameManager
 
 # Setup
 
@@ -15,10 +16,13 @@ class ExplainWordsGame(MDApp):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        # Styling
         self.theme_cls.material_style = "M3"
         self.theme_cls.theme_style = "Light"
         # self.theme_cls.primary_palette = "Indigo"
+        # Logic / App
         self.storage_manager = StorageManager()
+        self.game_manager = GameManager()
         self.start_screen_path = os.path.join("View", "AppLayout", "app_layout.kv")
 
     def build(self):
