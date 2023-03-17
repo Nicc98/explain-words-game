@@ -2,19 +2,10 @@
 #: import HomeScreen View.HomeScreen.home_screen.HomeScreen
 
 # Import Kivy files
-#: include View/HomeScreen/components/setting_dropdown.kv
+#: include View/HomeScreen/components/settings_drawer.kv
 
 <HomeScreen>:
     name: "Home"
-
-    MDNavigationDrawer:
-        id: nav_drawer
-
-        canvas.before:
-            Color:
-                rgba: app.storage_manager.get_color('light_pink')
-
-        OptionsNavigationDrawer:
 
     MDBoxLayout:
         orientation: 'vertical'
@@ -31,7 +22,7 @@
                 icon: 'menu'
                 theme_text_color: "Custom"
                 md_bg_color: 0, 0, 0, .2
-                text_color: app.storage_manager.get_color('light_pink')
+                # text_color: 
                 user_font_size: 32
                 pos_hint: {"center_y": 0.5, "left": 1}
                 on_press: nav_drawer.set_state("open")
@@ -40,7 +31,7 @@
                 text: "Vārdu Spēle"
                 halign: 'center'
                 valign: 'center'
-                color: app.storage_manager.get_color('light_pink')
+                # color: 
                 font_size: 64
                 bold: True
 
@@ -52,7 +43,7 @@
 
             MDLabel:
                 text: "Kategorija:"
-                color: app.storage_manager.get_color('pink')
+                # color: 
                 font_size: 64
                 bold: True
                 halign: 'center'
@@ -61,7 +52,7 @@
             MDLabel:
                 id: home_category_label
                 text: "Random"
-                color: app.storage_manager.get_color('pink')
+                # color: 
                 font_size: 48
                 bold: True
                 halign: 'center'
@@ -76,9 +67,10 @@
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                 text: "Jauna Spēle"
                 font_size: 48
-                text_color: app.storage_manager.get_color('light_blue')
+                # text_color: 
                 line_width: 2
-                line_color: app.storage_manager.get_color('blue')
+                # line_color: 
                 on_press: app.root.set_current_screen("Team Creation")
 
-
+    SettingsDrawer:
+        id: nav_drawer

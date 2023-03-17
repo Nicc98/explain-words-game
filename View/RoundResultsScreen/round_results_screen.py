@@ -1,8 +1,8 @@
-from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.screen import MDScreen
 from kivymd.uix.list import OneLineIconListItem
 from kivymd.app import MDApp
 
-class BetweenRoundsContent(MDBoxLayout):
+class RoundResultsScreen(MDScreen):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -17,9 +17,12 @@ class ExplainWordsGame(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         # Styling
+        self.theme_cls.theme_style_switch_animation = True
         self.theme_cls.material_style = "M3"
-        self.theme_cls.theme_style = "Light"
-        # self.theme_cls.primary_palette = "Indigo"
+        self.theme_cls.set_colors(
+            "Orange", "300", "100", "400", # Primary colors
+            "Teal", "300", "100", "400" # Accent
+        )
         # Logic / App
         self.storage_manager = StorageManager()
         self.game_manager = GameManager()

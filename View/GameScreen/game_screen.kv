@@ -22,7 +22,7 @@
                 halign: 'center'
                 valign: 'center'
                 bold: True
-                color: "#ffffff"
+                # color: 
 
             MDLabel:
                 text: "Komanda:"
@@ -30,7 +30,7 @@
                 halign: 'center'
                 valign: 'center'
                 bold: True
-                color: "#ffffff"
+                # color: 
 
             MDLabel:
                 id: team_label
@@ -39,7 +39,7 @@
                 halign: 'center'
                 valign: 'center'
                 bold: True
-                color: "#ffffff"
+                # color: 
 
         ### Middle
         MDBoxLayout:
@@ -81,7 +81,7 @@
                         id: word_skipped_btn
                         text: "Izlaist"
                         bold: True
-                        md_bg_color: "#FF0000"
+                        # md_bg_color: "#FF0000"
                         pos_hint: {"center_x": 0.25, "center_y": 0.5}
                         size_hint: 0.5, 0.5
                         on_release: root.show_new_word()
@@ -90,7 +90,7 @@
                         id: word_guessed_btn
                         text: "Uzminēts"
                         bold: True
-                        md_bg_color: "#00FF00"
+                        # md_bg_color: "#00FF00"
                         pos_hint: {"center_x": 0.25, "center_y": 0.5}
                         size_hint: 0.5, 0.5
                         on_release: root.add_score()
@@ -105,7 +105,7 @@
                     size_hint_y: 0.1
                     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                     text: "60"
-                    color: "#ffffff"
+                    # color: 
                     halign: 'center'
                     valign: 'center'
                     font_size: 32
@@ -131,7 +131,7 @@
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                 text: "Sākt"
                 font_size: 48
-                text_color: app.storage_manager.get_color('light_blue')
+                # text_color: 
                 line_width: 2
-                line_color: app.storage_manager.get_color('blue')
+                # line_color: 
                 on_release: root.start_game()

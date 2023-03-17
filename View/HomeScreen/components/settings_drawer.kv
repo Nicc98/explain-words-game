@@ -1,0 +1,50 @@
+#: import SettingsDrawer View.HomeScreen.components.settings_drawer.SettingsDrawer
+
+<SettingsDrawer>:
+    type: 'modal'
+
+    canvas:
+        Color:
+            rgba: app.theme_cls.primary_light
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            # radius: (0, 20, 20, 0)
+
+    MDNavigationDrawerMenu:
+        # spacing: ""
+
+        MDNavigationDrawerHeader:
+            title: "Iestatījumi"
+            # text: ""
+            # source: ""
+            # spacing: "4dp"
+            # padding: "12dp", 0, 0, "56dp"
+
+        MDNavigationDrawerDivider:
+            # color: ""
+        
+        MDNavigationDrawerItem:
+            icon: "notebook"
+            # text: 
+            
+            Spinner:
+                text: "Kategorijas"
+                font_size: 16
+                line_width: 1
+                values: ['Random', 'Superiga']
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                open_context: 'bottom'
+                theme_text_color: "Custom"
+                # text_color: 
+                # background_color: 
+        
+        MDNavigationDrawerItem:
+            text: "Tumšais režīms"
+
+            MDSwitch:    
+
+<SettingsItem>:
+    icon: root.icon
+
+    

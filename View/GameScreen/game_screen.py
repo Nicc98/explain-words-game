@@ -4,8 +4,6 @@ from kivy.clock import Clock
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
 
-from View.BetweenRoundsContent.between_rounds_content import BetweenRoundsContent
-
 class GameScreen(MDScreen):
 
     # TODO Add hard mode toggle switch in settings:
@@ -100,9 +98,11 @@ class GameScreen(MDScreen):
         if not self.dialog:
             self.dialog = MDDialog(
                 title = f"Round {self.current_round_number}",
+                text = f"Team '{self.current_team_name}' score: {self.game_manager.get_team_round_score(self.current_team_name, self.current_round_number)}",
+                shadow_color = "pink",
+                # md_bg_color = ,
+                background_color = (0, 0, 0, 0.7),
                 radius = [10, 10, 10, 10],
-                # type = "custom",
-                # content_cls = BetweenRoundsContent(),
                 buttons = [
                     MDFlatButton(
                         text = "Turpināt"
