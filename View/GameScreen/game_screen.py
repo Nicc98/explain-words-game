@@ -105,7 +105,8 @@ class GameScreen(MDScreen):
                 radius = [10, 10, 10, 10],
                 buttons = [
                     MDFlatButton(
-                        text = "Turpināt"
+                        text = "Turpināt",
+                        on_release = self.app.root.set_current_screen("Round Statistics")
                     )
                 ]
             )

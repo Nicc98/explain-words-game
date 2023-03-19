@@ -4,6 +4,8 @@
 #: include View/HomeScreen/home_screen.kv
 #: include View/TeamCreationScreen/team_creation_screen.kv
 #: include View/GameScreen/game_screen.kv
+#: include View/RoundStatisticsScreen/round_statistics_screen.kv
+#: include View/RoundResultsScreen/round_results_screen.kv
 #: include View/GameResultsScreen/game_results_screen.kv
 
 <AppLayout>:
@@ -23,6 +25,10 @@
             id: team_creation_screen
         GameScreen:
             id: game_screen
+        RoundStatisticsScreen:
+            id: round_statistics_screen
+        RoundResultsScreen:
+            id: round_results_screen
         GameResultsScreen:
             id: game_results_screen
 

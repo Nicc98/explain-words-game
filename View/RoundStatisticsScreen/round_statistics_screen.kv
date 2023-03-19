@@ -1,0 +1,26 @@
+#: import RoundStatisticsScreen View.RoundStatisticsScreen.round_statistics_screen.RoundStatisticsScreen
+
+<RoundStatisticsScreen>:
+    name: "Round Statistics"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: "12dp"
+        
+        MDList:
+            id: round_word_list
+
+        ### Bottom
+        MDBoxLayout:
+            size_hint_y: 0.1
+            orientation: 'vertical'
+
+            MDRoundFlatButton:
+                id: start_game_btn
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                text: "Sākt"
+                font_size: 48
+                # text_color: 
+                line_width: 2
+                # line_color: 
+                on_release: root.start_game()
