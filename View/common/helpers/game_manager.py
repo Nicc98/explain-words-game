@@ -66,5 +66,7 @@ class Team:
 class Round:
     '''Represents a single round for 1 team'''
 
-    def __init__(self, ):
-        pass
+    def __init__(self, round_number: int):
+        self.round_number = round_number
+        self.skipped_words = []
+        self.guessed_words = []
