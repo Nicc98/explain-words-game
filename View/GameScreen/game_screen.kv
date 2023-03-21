@@ -3,64 +3,38 @@
 <GameScreen>:
     name: "Game"
 
-    MDBoxLayout:
-        orientation: 'vertical'
-        padding: "10dp"
-        spacing: "10dp"
+    MainBox:
         
-        ### Top
-        MDBoxLayout:
-            size_hint_y: 0.15
-            orientation: 'vertical'
-            spacing: "10dp"
+        TopBoxV:
 
-            # Round number, current team
-            MDLabel:
+            HeaderLabel:
                 id: round_label
                 text: "Round " + root.current_round_number
-                font_size: 72
-                halign: 'center'
-                valign: 'center'
-                bold: True
-                # color: 
 
-            MDLabel:
+            SubHeaderLabel:
                 text: "Komanda:"
-                font_size: 48
-                halign: 'center'
-                valign: 'center'
-                bold: True
-                # color: 
 
-            MDLabel:
+            TextLabel:
                 id: team_label
                 text: ""
-                font_size: 48
-                halign: 'center'
-                valign: 'center'
-                bold: True
-                # color: 
+                font_size: 32
 
-        ### Middle
-        MDBoxLayout:
-            size_hint_y: 0.75
-            padding: "10dp"
-            spacing: "10dp"
+        MiddleBoxH:
 
             # Filler
             MDBoxLayout:
                 size_hint_x: 0.1
                 orientation: 'vertical'
 
-            # Game card and buttons
             MDBoxLayout:
                 orientation: 'vertical'
                 spacing: "10dp"
 
+                # Game card
                 MDBoxLayout:
                     size_hint: 0.8, 0.5
                     orientation: "vertical"
-                    pos_hint: {"center_x": .5, "center_y": .5}
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
                     MDCard:
 
@@ -72,26 +46,31 @@
                             font_size: 64
                             bold: True
 
+                # Game buttons
                 MDBoxLayout:
                     size_hint: 0.8, 0.1
                     spacing: "10dp"
-                    pos_hint: {"center_x": .5, "center_y": .5}
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
-                    MDRaisedButton:
+                    MDRoundFlatButton:
                         id: word_skipped_btn
-                        text: "Izlaist"
-                        bold: True
-                        # md_bg_color: "#FF0000"
+                        text: "IZLAIST"
+                        font_size: 32
+                        line_width: 2
+                        text_color: "#FF0000"
+                        line_color: "#FF0000"
                         pos_hint: {"center_x": 0.25, "center_y": 0.5}
                         size_hint: 0.5, 0.5
                         on_release: root.show_new_word()
 
-                    MDRaisedButton:
+                    MDRoundFlatButton:
                         id: word_guessed_btn
-                        text: "Uzminēts"
-                        bold: True
-                        # md_bg_color: "#00FF00"
-                        pos_hint: {"center_x": 0.25, "center_y": 0.5}
+                        text: "UZMINĒTS"
+                        font_size: 32
+                        line_width: 2
+                        text_color: "#00FF00"
+                        line_color: "#00FF00"
+                        pos_hint: {"center_x": 0.75, "center_y": 0.5}
                         size_hint: 0.5, 0.5
                         on_release: root.add_score()
                 
@@ -120,18 +99,10 @@
                     max: 60
                     color: "#00FF00"
 
-        ### Bottom
-        MDBoxLayout:
+        BottomBoxV:
             id: bottom_layout
-            size_hint_y: 0.1
-            orientation: 'vertical'
 
-            MDRoundFlatButton:
-                id: start_game_btn
-                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            RoundTextButton:
+                id: start_round_btn
                 text: "Sākt"
-                font_size: 48
-                # text_color: 
-                line_width: 2
-                # line_color: 
-                on_release: root.start_game()
+                on_press: root.start_round()

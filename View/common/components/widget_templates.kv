@@ -1,0 +1,91 @@
+#: import * View.common.components.widget_templates
+
+###
+# Box layouts
+###
+
+# Used as main screen container
+<MainBox>:
+    orientation: 'vertical'
+    padding: "10dp"
+    spacing: "10dp"
+
+# Used as top part container inside main container
+# Orientation: vertical
+<TopBoxV>:
+    size_hint_y: 0.15
+    orientation: 'vertical'
+    spacing: "10dp"
+    spacing: "10dp"
+
+# Used as middle part container inside main container
+# Orientation: horizontal
+<MiddleBoxH>:
+    size_hint_y: 0.75
+    orientation: 'horizontal'
+    padding: "10dp"
+    spacing: "10dp"
+
+# Used as middle part container inside main container
+# Orientation: vertical
+<MiddleBoxV>:
+    size_hint_y: 0.75
+    orientation: 'vertical'
+    padding: "10dp"
+    spacing: "10dp"
+
+# Used as middle part container inside main container
+# Orientation: vertical
+<BottomBoxV>:
+    size_hint_y: 0.1
+    orientation: 'vertical'
+    padding: "10dp"
+    spacing: "10dp"
+
+###
+# Buttons
+###
+
+# Bottom Action Button
+<RoundTextButton>:
+    text: self.text
+    text_color: self.text_color
+    line_color: self.line_color
+    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+    font_size: 48
+    line_width: 2
+
+<TopLeftButton>:
+    icon: self.icon
+    text_color: self.text_color
+    theme_text_color: "Custom"
+    md_bg_color: 0, 0, 0, .2
+    user_font_size: 32
+    pos_hint: {"center_y": 0.5, "left": 1}
+
+###
+# Labels
+###
+
+<HeaderLabel>:
+    text: self.text
+    color: self.color
+    halign: 'center'
+    valign: 'center'
+    font_size: 64
+    bold: True
+
+<SubHeaderLabel>:
+    text: self.text
+    color: self.color
+    halign: 'center'
+    valign: 'center'
+    font_size: 48
+    bold: True
+
+<TextLabel>:
+    text: self.text
+    color: self.color
+    halign: 'center'
+    valign: 'center'
+    font_size: 16

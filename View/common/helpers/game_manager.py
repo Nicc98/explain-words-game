@@ -1,4 +1,3 @@
-import dataclasses as dc
 import random
 
 class GameManager:
@@ -27,7 +26,7 @@ class GameManager:
 
     def get_team_round_score(self, team_name: str, round_number: str):
         team = self.get_team_by_name(team_name)
-        return team.round_scores[round_number]
+        return team.round_details[round_number]
 
     def get_team_total_score(self, team_name: str):
         team = self.get_team_by_name(team_name)
@@ -35,15 +34,15 @@ class GameManager:
     
     def add_team_round(self, team_name: str, round_number: str):
         team = self.get_team_by_name(team_name)
-        team.round_scores[round_number] = 0
+        team.round_details[round_number] = 0
 
     def increase_team_round_score(self, team_name: str, round_number: str):
         team = self.get_team_by_name(team_name)
         print("Score increase")
         print(f"Team: {team_name}, Round number: {round_number}")
-        team.round_scores[round_number] += 1 
+        team.round_details[round_number] += 1 
         team.total_score += 1
-        print(f"Round scores after: {team.round_scores}")
+        print(f"Round scores after: {team.round_details}")
 
     ### Game word control
         
@@ -61,5 +60,11 @@ class Team:
 
     def __init__(self, name: str):
         self.name = name
-        self.round_scores = {}
+        self.round_details = {}
         self.total_score = 0
+
+class Round:
+    '''Represents a single round for 1 team'''
+
+    def __init__(self, ):
+        pass

@@ -1,45 +1,20 @@
-# Import Python files
 #: import HomeScreen View.HomeScreen.home_screen.HomeScreen
-
-# Import Kivy files
-#: include View/HomeScreen/components/settings_drawer.kv
 
 <HomeScreen>:
     name: "Home"
 
-    MDBoxLayout:
-        orientation: 'vertical'
-        padding: "10dp"
-        spacing: "10dp"
+    MainBox:
         
-        MDBoxLayout:
-            orientation: 'vertical'
-            size_hint_y: 0.3
-            padding: "10dp"
-            spacing: "10dp"
+        TopBoxV:
 
-            MDIconButton:
+            TopLeftButton:
                 icon: 'menu'
-                theme_text_color: "Custom"
-                md_bg_color: 0, 0, 0, .2
-                # text_color: 
-                user_font_size: 32
-                pos_hint: {"center_y": 0.5, "left": 1}
                 on_press: nav_drawer.set_state("open")
 
-            MDLabel:
+            HeaderLabel:
                 text: "Vārdu Spēle"
-                halign: 'center'
-                valign: 'center'
-                # color: 
-                font_size: 64
-                bold: True
 
-        MDBoxLayout:
-            orientation: 'vertical'
-            size_hint_y: 0.5
-            padding: "10dp"
-            spacing: "5dp"
+        MiddleBoxV:
 
             MDLabel:
                 text: "Kategorija:"
@@ -58,18 +33,11 @@
                 halign: 'center'
                 valign: 'top'
             
-        MDBoxLayout:
-            size_hint_y: 0.5
-            orientation: 'vertical'
+        BottomBoxV:
 
-            MDRoundFlatButton:
+            RoundTextButton:
                 id: new_game_btn
-                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                 text: "Jauna Spēle"
-                font_size: 48
-                # text_color: 
-                line_width: 2
-                # line_color: 
                 on_press: app.root.set_current_screen("Team Creation")
 
     SettingsDrawer:

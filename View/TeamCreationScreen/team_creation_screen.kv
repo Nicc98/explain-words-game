@@ -3,39 +3,18 @@
 <TeamCreationScreen>:
     name: "Team Creation"
 
-    MDBoxLayout:
-        orientation: 'vertical'
-        padding: "10dp"
-        spacing: "10dp"
+    MainBox:
         
-        MDBoxLayout:
-            orientation: 'vertical'
-            size_hint_y: 0.2
-            padding: "10dp"
-            spacing: "10dp"
+        TopBoxV:
 
-            MDIconButton:
+            TopLeftButton:
                 icon: 'arrow-left'
-                theme_text_color: "Custom"
-                md_bg_color: 0, 0, 0, .2
-                # text_color: 
-                user_font_size: 32
-                pos_hint: {"center_y": 0.5, "left": 1}
                 on_press: app.root.set_current_screen("Home", "right")
 
-            MDLabel:
+            HeaderLabel:
                 text: "Izveido komandas:"
-                halign: 'center'
-                valign: 'center'
-                # color: 
-                font_size: 64
-                bold: True
 
-        # Team input and display section
-        MDBoxLayout:
-            orientation: 'vertical'
-            padding: "10dp"
-            spacing: "5dp"
+        MiddleBoxV:
 
             # Team input
             MDBoxLayout:
@@ -82,14 +61,9 @@
                     MDList:
                         id: team_list
 
-        AnchorLayout:
-            size_hint_y: 0.1
+        BottomBoxV:
 
-            MDRoundFlatButton:
-                id: new_game_btn
+            RoundTextButton:
+                id: continue_btn
                 text: "Spēlēt"
-                font_size: 48
-                # text_color: 
-                line_width: 2
-                # line_color: 
                 on_press: root.go_to_game()
