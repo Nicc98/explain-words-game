@@ -7,6 +7,19 @@
 
         TopBoxV:
 
+            TopLeftButton:
+                icon: 'close'
+                on_press: app.root.go_to("Home", "right")
+
+            HeaderLabel:
+                id: header_label
+                text: f"{app.game_manager.round_number}. kārtas rezultāti"
+
         MiddleBoxV:
 
         BottomBoxV:
+
+            RoundTextButton:
+                id: start_new_round_btn
+                text: "Turpināt"
+                on_release: root.continue_game()

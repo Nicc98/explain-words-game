@@ -7,6 +7,28 @@
 
         TopBoxV:
 
+            TopLeftButton:
+                icon: 'close'
+                on_press: app.root.go_to("Home", "right")
+
+            HeaderLabel:
+                id: header_label
+                text: "Pārskati izspēlētos vārdus"
+
         MiddleBoxV:
 
+            ScrollView:
+
+                MDSelectionList:
+                    id: selection_list
+                    spacing: "10dp"
+                    on_selected: app.on_selected(*args)
+                    on_unselected: app.on_unselected(*args)
+                    on_selected_mode: app.set_selection_mode(*args)
+
         BottomBoxV:
+
+            RoundTextButton:
+                id: accept_words_btn
+                text: "Apstiprināt"
+                on_release: root.continue_game()

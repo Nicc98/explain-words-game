@@ -13,34 +13,22 @@ class GameScreen(MDScreen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
-        self.game_manager = self.app.game_manager
         self.game_ongoing = False
-        self.current_round_number = "1"
-        self.current_team_name = ""
-        self.current_team_index = 0
         self.counter = 0
-        self.no_word_text = "- - -"
+        self.current_word = "- - -"
         self.dialog = MDDialog(
             text = "Laiks beidzies!",
             auto_dismiss = False,
             buttons = [
-                MDFlatButton(
-                    id = 'end-game-btn',
-                    text = 'Beigt spēli',
-                    on_release = self.go_to_game_results
-                ),
                 MDRaisedButton(
-                    id = 'continue-game-btn',
                     text = 'Turpināt',
                     on_release = self.go_to_round_statistics
                 )
             ]
         )
     
-    def on_enter(self, *args) -> None:
-        self.current_team_name = self.game_manager.get_team_by_index(self.current_team_index).name
-        self.ids.team_label.text = self.current_team_name
-        self.game_manager.add_team_round(self.current_team_name, self.current_round_number)
+    def on_pre_enter(self, *args):
+        self.ids.team_label.text = self.app.game_manager.current_team.name
 
     def start_round(self):
         self.game_ongoing = True
@@ -57,13 +45,10 @@ class GameScreen(MDScreen):
 
         self.ids.timer_bar.value -= 0.1
         current_time = self.ids.timer_bar.value
-
         # Check for stop
         if current_time <= 0: self.stop_round_actions()
-        
         # Update label
         self.handle_timer_label(current_time)
-
         # Update progress bar
         self.handle_timer_bar(current_time)
 
@@ -73,7 +58,7 @@ class GameScreen(MDScreen):
         self.round_timer.cancel()
         self.game_ongoing = False
         self.ids.timer_bar.value = 0
-        self.ids.guess_word.text = self.no_word_text
+        self.ids.guess_word.text = "- - -"
         self.ids.timer_label.text = "0"
         self.counter = 0
         self.show_round_info()
@@ -94,35 +79,37 @@ class GameScreen(MDScreen):
             if current_time / 60.0 <= threshold:
                 self.ids.timer_bar.color = color
                 break
-    
-    def add_score(self):
-        if not self.game_ongoing: return
 
+    # Score and word updates
+
+    def guess_word(self):
+        if not self.game_ongoing: return
+        self.save_word(True)
         self.show_new_word(True)
-        self.game_manager.increase_team_round_score(self.current_team_name, self.current_round_number)
-        print(f"Score: {self.game_manager.get_team_round_score(self.current_team_name, self.current_round_number)}")
+
+    def skip_word(self):
+        if not self.game_ongoing: return
+        self.save_word(False)
+        self.show_new_word()
+
+    def save_word(self, guessed: bool):
+        self.app.game_manager.current_turn.save_word(self.current_word, guessed)
     
     def show_new_word(self, remove_word: bool = False):
         if not self.game_ongoing: return
 
-        word = self.game_manager.get_new_word(remove_word)
-        if word == -1:
+        self.current_word = self.app.game_manager.get_new_word(remove_word)
+        if self.current_word == -1:
             self.stop_round_actions()
         else:
-            self.ids.guess_word.text = word
+            self.ids.guess_word.text = self.current_word
 
-    # Dialog 
+    # Dialog
 
     def show_round_info(self):
         self.dialog.open()
     
-    def continue_to_screen(self, screen_name: str):
-        print(f"Going to {screen_name}..")
-        self.dialog.dismiss()
-        self.app.root.set_current_screen(screen_name)
-
     def go_to_round_statistics(self, instance_button):
-        self.continue_to_screen("Round Statistics")
-
-    def go_to_game_results(self, instance_button):
-        self.continue_to_screen("Game Results")
+        print(self.app.game_manager.current_turn.all_words)
+        self.dialog.dismiss()
+        self.app.game_manager.after_game_screen()

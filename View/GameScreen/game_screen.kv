@@ -7,9 +7,13 @@
         
         TopBoxV:
 
+            TopLeftButton:
+                icon: 'close'
+                on_press: app.root.go_to("Home", "right")
+
             HeaderLabel:
                 id: round_label
-                text: "Round " + root.current_round_number
+                text: f"{app.game_manager.round_number}. kārta"
 
             SubHeaderLabel:
                 text: "Komanda:"
@@ -40,7 +44,7 @@
 
                         MDLabel:
                             id: guess_word
-                            text: root.no_word_text
+                            text: root.current_word
                             halign: 'center'
                             valign: 'center'
                             font_size: 64
@@ -61,18 +65,18 @@
                         line_color: "#FF0000"
                         pos_hint: {"center_x": 0.25, "center_y": 0.5}
                         size_hint: 0.5, 0.5
-                        on_release: root.show_new_word()
+                        on_release: root.skip_word()
 
                     MDRoundFlatButton:
                         id: word_guessed_btn
-                        text: "UZMINĒTS"
+                        text: "UZMINĒT"
                         font_size: 32
                         line_width: 2
                         text_color: "#00FF00"
                         line_color: "#00FF00"
                         pos_hint: {"center_x": 0.75, "center_y": 0.5}
                         size_hint: 0.5, 0.5
-                        on_release: root.add_score()
+                        on_release: root.guess_word()
                 
             # Time progress bar and label
             MDBoxLayout:

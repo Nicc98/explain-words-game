@@ -10,7 +10,7 @@ class TeamCreationScreen(MDScreen):
 
     def go_to_game(self):
         if len(list(self.ids.team_list.children)) > 0:
-            self.app.root.set_current_screen("Game")
+            self.app.game_manager.after_team_creation_screen()
         else:
             print("Not enough teams added!")
         # TODO add error message saying that at least 1 team needs to be added

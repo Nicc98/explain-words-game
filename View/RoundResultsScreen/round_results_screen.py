@@ -8,5 +8,6 @@ class RoundResultsScreen(MDScreen):
         super().__init__(*args, **kwargs)
         self.app = MDApp.get_running_app()
 
-
+    def continue_game(self):
+        self.app.game_manager.after_round_results_screen()
         

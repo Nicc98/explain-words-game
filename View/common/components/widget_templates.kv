@@ -4,41 +4,51 @@
 # Box layouts
 ###
 
-# Used as main screen container
+# Main container - Vertical
 <MainBox>:
     orientation: 'vertical'
     padding: "10dp"
     spacing: "10dp"
 
-# Used as top part container inside main container
-# Orientation: vertical
+# Top part container - Vertical
 <TopBoxV>:
     size_hint_y: 0.15
     orientation: 'vertical'
     spacing: "10dp"
     spacing: "10dp"
 
-# Used as middle part container inside main container
-# Orientation: horizontal
-<MiddleBoxH>:
-    size_hint_y: 0.75
+# Top part container - Horizontal
+<TopBoxH>:
+    size_hint_y: 0.15
     orientation: 'horizontal'
-    padding: "10dp"
+    spacing: "10dp"
     spacing: "10dp"
 
-# Used as middle part container inside main container
-# Orientation: vertical
+# Middle part container - Vertical
 <MiddleBoxV>:
     size_hint_y: 0.75
     orientation: 'vertical'
     padding: "10dp"
     spacing: "10dp"
 
-# Used as middle part container inside main container
-# Orientation: vertical
+# Middle part container - Horizontal
+<MiddleBoxH>:
+    size_hint_y: 0.75
+    orientation: 'horizontal'
+    padding: "10dp"
+    spacing: "10dp"
+
+# Bottom part container - Vertical
 <BottomBoxV>:
     size_hint_y: 0.1
     orientation: 'vertical'
+    padding: "10dp"
+    spacing: "10dp"
+
+# Bottom part container - Horizontal
+<BottomBoxH>:
+    size_hint_y: 0.1
+    orientation: 'horizontal'
     padding: "10dp"
     spacing: "10dp"
 
@@ -89,3 +99,31 @@
     halign: 'center'
     valign: 'center'
     font_size: 16
+
+### List items
+
+<TeamListItem>:
+    text: self.text
+
+    IconLeftWidgetWithoutTouch:
+        icon: root.icon
+
+<ScoreListItem>:
+    text: self.text
+
+    IconLeftWidgetWithoutTouch:
+        icon: root.icon
+
+<WordListItem>:
+    text: self.text
+
+    IconLeftWidgetWithoutTouch:
+        icon: root.icon
+
+    RightContainerTouch:
+
+        MDIconButton:
+            icon: "minus"
+
+        MDIconButton:
+            icon: "plus"
