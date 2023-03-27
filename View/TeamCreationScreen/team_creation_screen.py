@@ -21,7 +21,8 @@ class TeamCreationScreen(MDScreen):
             return
         # TODO maybe add custom list item to preset color, font, etc.
         new_team = OneLineIconListItem(
-            text = team_name
+            text = team_name,
+            text_color = "#ffffff"
         )
         self.ids.team_list.add_widget(new_team)
         self.ids.team_name_input.text = ''

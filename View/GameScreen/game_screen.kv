@@ -12,8 +12,8 @@
                 on_press: app.root.go_to("Home", "right")
 
             HeaderLabel:
-                id: round_label
-                text: f"{app.game_manager.round_number}. kārta"
+                id: header_label
+                text: ""
 
             SubHeaderLabel:
                 text: "Komanda:"
@@ -105,8 +105,3 @@
 
         BottomBoxV:
             id: bottom_layout
-
-            RoundTextButton:
-                id: start_round_btn
-                text: "Sākt"
-                on_press: root.start_round()

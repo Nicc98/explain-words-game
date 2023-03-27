@@ -1,6 +1,6 @@
-#: import RoundStatisticsScreen View.RoundStatisticsScreen.round_statistics_screen.RoundStatisticsScreen
+#: import TurnStatisticsScreen View.TurnStatisticsScreen.turn_statistics_screen.TurnStatisticsScreen
 
-<RoundStatisticsScreen>:
+<TurnStatisticsScreen>:
     name: "Round Statistics"
 
     MainBox:
@@ -19,12 +19,8 @@
 
             ScrollView:
 
-                MDSelectionList:
-                    id: selection_list
-                    spacing: "10dp"
-                    on_selected: app.on_selected(*args)
-                    on_unselected: app.on_unselected(*args)
-                    on_selected_mode: app.set_selection_mode(*args)
+                MDList:
+                    id: turn_word_list
 
         BottomBoxV:
 

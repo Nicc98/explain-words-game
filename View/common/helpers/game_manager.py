@@ -28,7 +28,11 @@ class GameManager:
         self.current_turn = Turn(self.round_number)
 
     def reset_game(self, keep_teams: bool = True):
-        if not keep_teams: self.all_teams = {}
+        if keep_teams:
+            for team in self.all_teams.values():
+                team.reset_score()
+        else:
+            self.all_teams = {}
         self.all_words = GAME_WORDS.copy()
         self.played_words = []
         self.round_number = 1
@@ -37,7 +41,6 @@ class GameManager:
         self.current_turn = None
 
     def next_turn(self):
-        self.team_index += 1  
         self.current_team = self.get_team_by_index(self.team_index)
         self.current_turn = Turn(self.round_number)
         # Remove this after testing / getting more words
@@ -46,6 +49,7 @@ class GameManager:
     def next_round(self):
         self.round_number += 1
         self.team_index = 0
+        self.next_turn()
 
     # After screen actions
 
@@ -57,10 +61,13 @@ class GameManager:
         self.app.root.go_to("Round Statistics")
 
     def after_statistics_screen(self):
-        self.next_turn()
+        self.team_index += 1
         target_screen = "Game"
-        if self.team_index == len(self.all_teams):
+        if self.team_index >= len(self.all_teams):
             target_screen = "Round Results"
+        else:
+            self.next_turn()
+        self.current_team.add_round_details(self.round_number, self.current_turn)
         self.app.root.go_to(target_screen)
 
     def after_round_results_screen(self):
@@ -114,6 +121,7 @@ class Turn:
         self.skipped_words = []
         self.score = 0
 
+    # Handle words thats were skipped and later guessed
     def save_word(self, word: str, guessed: bool):
         word_pair = [word, guessed]
         if word_pair not in self.all_words: self.all_words.append(word_pair)
@@ -141,9 +149,14 @@ class Team:
         self.round_details = {}
         self.total_score = 0
 
-    def get_round_score(self, round_number):
+    def get_turn_score(self, round_number):
+        print(f"Turn details: {self.round_details}")
         return self.round_details[str(round_number)].score
     
     def add_round_details(self, round_number, turn: Turn):
         self.round_details[str(round_number)] = turn
         self.total_score += turn.score
+    
+    def reset_score(self):
+        self.round_details = {}
+        self.total_score = 0
