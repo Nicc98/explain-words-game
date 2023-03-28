@@ -14,11 +14,13 @@
 
 <AppLayout>:
     canvas.before:
+        Color:
+            rgba: app.theme_cls.accent_color
 
         Rectangle:
             pos: self.pos
             size: self.size
-            source: 'assets/images/home_bg.png'
+        #     source: 'assets/images/home_bg.png'
 
     ScreenManager:
         id: screen_manager

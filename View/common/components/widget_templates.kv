@@ -59,16 +59,16 @@
 # Bottom Action Button
 <RoundTextButton>:
     text: self.text
-    text_color: self.text_color
-    line_color: self.line_color
+    text_color: app.theme_cls.accent_color
+    line_color: app.theme_cls.accent_dark
     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
     font_size: 48
     line_width: 2
 
 <TopLeftButton>:
     icon: self.icon
-    text_color: self.text_color
     theme_text_color: "Custom"
+    text_color: app.theme_cls.primary_light
     md_bg_color: 0, 0, 0, .2
     user_font_size: 32
     pos_hint: {"center_y": 0.5, "left": 1}
@@ -79,7 +79,8 @@
 
 <HeaderLabel>:
     text: self.text
-    color: self.color
+    theme_text_color: 'Custom'
+    text_color: app.theme_cls.primary_dark
     halign: 'center'
     valign: 'center'
     font_size: 64
@@ -87,7 +88,8 @@
 
 <SubHeaderLabel>:
     text: self.text
-    color: self.color
+    theme_text_color: 'Custom'
+    text_color: app.theme_cls.primary_color
     halign: 'center'
     valign: 'center'
     font_size: 48
@@ -95,7 +97,8 @@
 
 <TextLabel>:
     text: self.text
-    color: self.color
+    theme_text_color: 'Custom'
+    text_color: app.theme_cls.primary_light
     halign: 'center'
     valign: 'center'
     font_size: 16
@@ -104,26 +107,51 @@
 
 <TeamListItem>:
     text: self.text
+    theme_text_color: 'Custom'
+    text_color: app.theme_cls.primary_light
+    font_size: 32
+    bold: True
+    divider_color: 0, 0, 0, 0
 
     IconLeftWidgetWithoutTouch:
         icon: root.icon
+        theme_text_color: 'Custom'
+        text_color: app.theme_cls.accent_color
+
+    MDIconButton:
+        id: delete_btn
+        icon: 'trash-can-outline'
+        theme_text_color: 'Error'
+        pos_hint: {"center_y": 0.5, "right": 1}
+        on_release: root.delete_item()
 
 <ScoreListItem>:
     text: self.text
+    theme_text_color: 'Custom'
+    text_color: app.theme_cls.primary_light
+    font_size: 32
+    bold: True
+    divider_color: 0, 0, 0, 0
 
     IconLeftWidgetWithoutTouch:
         icon: root.icon
+        theme_text_color: 'Custom'
+        text_color: app.theme_cls.accent_color
 
 <WordListItem>:
     text: self.text
+    theme_text_color: 'Custom'
+    text_color: app.theme_cls.primary_light
+    font_size: 32
+    bold: True
+    divider_color: 0, 0, 0, 0
 
-    IconLeftWidgetWithoutTouch:
-        icon: root.icon
-
-    RightContainerTouch:
-
-        MDIconButton:
-            icon: "minus"
-
-        MDIconButton:
-            icon: "plus"
+    MDSwitch:
+        id: guessed_switch
+        active: root.guessed
+        icon_active: "plus"
+        icon_inactive: "minus"
+        thumb_color_active: app.theme_cls.primary_color
+        thumb_color_inactive: "brown"
+        pos_hint: {'center_y': 0.5, 'right': 0.9}
+        on_active: root.on_switch_active

@@ -1,6 +1,7 @@
 from kivymd.uix.screen import MDScreen
-from kivymd.uix.list import OneLineIconListItem
 from kivymd.app import MDApp
+
+from View.common.components.widget_templates import WordListItem
 
 class TurnStatisticsScreen(MDScreen):
 
@@ -21,8 +22,8 @@ class TurnStatisticsScreen(MDScreen):
         all_words = self.app.game_manager.current_turn.all_words
         
         for word in all_words:
-            played_word = OneLineIconListItem(
-                text = f"{word[0]}: {word[1]}",
-                text_color = "#ffffff"
+            played_word = WordListItem(
+                text = word[0],
+                guessed = word[1]
             )
             self.ids.turn_word_list.add_widget(played_word)

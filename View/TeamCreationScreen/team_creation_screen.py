@@ -1,6 +1,9 @@
+import random
+
 from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
-from kivymd.uix.list import OneLineIconListItem
+
+from View.common.components.widget_templates import TeamListItem
 
 class TeamCreationScreen(MDScreen):
 
@@ -19,14 +22,8 @@ class TeamCreationScreen(MDScreen):
         team_name = self.ids.team_name_input.text
         if not team_name:
             return
-        # TODO maybe add custom list item to preset color, font, etc.
-        new_team = OneLineIconListItem(
-            text = team_name,
-            text_color = "#ffffff"
-        )
+        random_icon = random.choice(self.app.icons)
+        new_team = TeamListItem(text = team_name, icon = random_icon)
         self.ids.team_list.add_widget(new_team)
         self.ids.team_name_input.text = ''
         self.app.game_manager.add_team(team_name)
-        
-
-

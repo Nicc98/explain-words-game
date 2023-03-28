@@ -86,6 +86,9 @@ class GameManager:
     def add_team(self, team_name: str):
         self.all_teams[team_name] = Team(team_name)
 
+    def remove_team(self, team_name: str):
+        del self.all_teams[team_name]
+
     def get_team_by_index(self, team_index: int):
         all_teams = list(self.all_teams.values())
         if team_index < len(all_teams):

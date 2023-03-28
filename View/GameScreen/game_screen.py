@@ -109,11 +109,11 @@ class GameScreen(MDScreen):
         self.show_new_word(True)
 
     def save_word(self, guessed: bool):
+        if not self.game_ongoing: return
         self.app.game_manager.current_turn.save_word(self.current_word, guessed)
     
     def show_new_word(self, remove_word: bool = False):
         if not self.game_ongoing: return
-
         self.current_word = self.app.game_manager.get_new_word(remove_word)
         if self.current_word == -1:
             self.stop_turn_actions()
