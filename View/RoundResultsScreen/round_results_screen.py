@@ -1,8 +1,13 @@
 from kivymd.uix.screen import MDScreen
-from kivymd.uix.list import OneLineIconListItem
 from kivymd.app import MDApp
 
+from View.common.components.widget_templates import ScoreListItem
+
 class RoundResultsScreen(MDScreen):
+
+    # TODO Fix icon showing here and in game results screen
+    
+    # TODO Maybe think about adding animations to make results more exciting
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -18,12 +23,14 @@ class RoundResultsScreen(MDScreen):
     def continue_game(self):
         self.app.game_manager.after_round_results_screen()
 
+    # TODO Add team sorting in list by score
     def populate_round_results_list(self):
         round_number = self.app.game_manager.round_number
-        for team in self.app.game_manager.all_teams.values():
-            turn_score = OneLineIconListItem(
-                text = f"{team.name}: {team.get_turn_score(round_number)}",
-                text_color = "#ffffff"
+        for team in self.app.game_manager.get_sorted_teams(round_number):
+            turn_score = ScoreListItem(
+                text = team[0],
+                icon = team[1],
+                score = team[2]
             )
             self.ids.round_results_list.add_widget(turn_score)
 

@@ -18,6 +18,8 @@ class TurnStatisticsScreen(MDScreen):
     def continue_game(self):
         self.app.game_manager.after_statistics_screen()
 
+    # TODO Add handling for edited words using switches on exit
+    # change the words guessed and not guessed depending on switch state
     def populate_turn_word_list(self):
         all_words = self.app.game_manager.current_turn.all_words
         

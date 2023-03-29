@@ -64,11 +64,13 @@
     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
     font_size: 48
     line_width: 2
+    font_name: app.fonts["telegraf"]
 
 <TopLeftButton>:
     icon: self.icon
     theme_text_color: "Custom"
-    text_color: app.theme_cls.primary_light
+    text_color: app.theme_cls.accent_color
+    icon_color: app.theme_cls.accent_color
     md_bg_color: 0, 0, 0, .2
     user_font_size: 32
     pos_hint: {"center_y": 0.5, "left": 1}
@@ -134,9 +136,20 @@
     divider_color: 0, 0, 0, 0
 
     IconLeftWidgetWithoutTouch:
+        id: team_icon
         icon: root.icon
         theme_text_color: 'Custom'
         text_color: app.theme_cls.accent_color
+
+    MDLabel:
+        id: team_score
+        text: root.score
+        theme_text_color: 'Custom'
+        text_color: app.theme_cls.primary_light
+        halign: 'right'
+        valign: 'center'
+        font_size: 32
+        pos_hint: {"center_y": 0.5, "right": 1}
 
 <WordListItem>:
     text: self.text

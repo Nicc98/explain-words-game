@@ -4,6 +4,7 @@ from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.core.window import Window
 from kivymd.icon_definitions import md_icons
+from kivymd.font_definitions import theme_font_styles
 
 from View.AppLayout.app_layout import AppLayout
 from View.common.helpers.storage_manager import StorageManager
@@ -13,21 +14,24 @@ from View.common.helpers.game_manager import GameManager
 
 Window.size = (400, 700)
 
-app_colors = {
-    "LightPurple": "#E1DEF8",
-    "Purple":      "#CFAFF1",
-    "DarkPurple":  "#9A72D5",
-    "LightBlue":   "#75E1ED",
-    "Blue":        "#D4E4FF",
-    "DarkBlue":    "#82B4DF"
-}
-
 class ExplainWordsGame(MDApp):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         # Styling
-        self.app_colors = app_colors
+        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.material_style = "M3"
+        self.theme_cls.set_colors(
+            "Purple", "300", "100", "400", # Primary colors
+            "Pink", "300", "100", "400"    # Accent
+        )
+        self.fonts = {
+            "telegraf":       "assets/fonts/telegraf-regular.otf",
+            "telegraf-light": "assets/fonts/telegraf-light.otf",
+            "telegraf-bold":  "assets/fonts/telegraf-bold.otf"
+        }
+        # md_icons["crown"] = "U+1F451"
+        # md_icons["poop"] = "U+1F4A9"
         self.icons = list(md_icons.keys())
         # Logic / App
         self.storage_manager = StorageManager()

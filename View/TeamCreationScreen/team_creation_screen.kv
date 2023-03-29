@@ -26,15 +26,13 @@
                     max_text_length: 10
                     multiline: False
                     color_mode: 'Custom'
-                    # line_color: 
-                    # fill_color: 
+                    line_color: app.theme_cls.primary_light
                     pos_hint: {"center_x": 0.5, "center_y": 0.5}
-                    # mode: 'round'
                 
                 MDIconButton:
                     icon: 'content-save-plus-outline'
                     theme_text_color: "Custom"
-                    # text_color: 
+                    text_color: app.theme_cls.accent_color
                     user_font_size: 32
                     pos_hint: {"center_y": 0.5, "left": 1}
                     on_press: root.add_team()

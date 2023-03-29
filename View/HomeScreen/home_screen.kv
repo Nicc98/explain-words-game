@@ -7,29 +7,21 @@
         
         TopBoxV:
 
-            TopLeftButton:
-                icon: 'menu'
-                on_press: nav_drawer.set_state("open")
+        MDBoxLayout:
+            size_hint_y: 0.75
+            orientation: 'vertical'
 
-            HeaderLabel:
-                text: "Vārdu Spēle"
-
-        MiddleBoxV:
-
-            SubHeaderLabel:
-                text: "Kategorija:"
-                pos_hint: {'center_x': 0.5, 'center_y': 0.9}
-
-            TextLabel:
-                id: home_category_label
-                text: "Random"
-                font_size: 32
-                pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+            Image:
+                source: 'assets/images/app_title.gif'
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                anim_delay: 0.05
+                radius: 40, 40, 40, 40
             
         BottomBoxV:
 
             RoundTextButton:
                 id: new_game_btn
+                # text: "JAUNA SPĒLE"
                 text: "Jauna Spēle"
                 on_press: app.root.go_to("Team Creation")
 

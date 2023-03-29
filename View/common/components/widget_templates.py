@@ -77,6 +77,7 @@ class TeamListItem(OneLineAvatarIconListItem):
 class ScoreListItem(OneLineAvatarIconListItem):
     text = StringProperty()
     icon = StringProperty() 
+    score = StringProperty()
 
 class WordListItem(OneLineAvatarIconListItem):
     text = StringProperty()

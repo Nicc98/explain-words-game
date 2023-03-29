@@ -61,13 +61,15 @@ class GameManager:
         self.app.root.go_to("Round Statistics")
 
     def after_statistics_screen(self):
+        # Save previous round details
+        self.current_team.add_round_details(self.round_number, self.current_turn)
+        # Prepare for next round or round results
         self.team_index += 1
         target_screen = "Game"
         if self.team_index >= len(self.all_teams):
             target_screen = "Round Results"
         else:
             self.next_turn()
-        self.current_team.add_round_details(self.round_number, self.current_turn)
         self.app.root.go_to(target_screen)
 
     def after_round_results_screen(self):
@@ -95,11 +97,29 @@ class GameManager:
             return all_teams[team_index]
         else:
             print(f"Team index out of bounds: '{self.team_index}'")
-            # Maybe just return team with index 0 to simplify the loop
+            # TODO Maybe just return team with index 0 to simplify the loop
             return None
 
     def get_team_by_name(self, team_name: str):
         return self.all_teams[team_name]
+    
+    def get_sorted_teams(self, round_number: int = -1):
+        all_team_details = []
+        for team in self.all_teams.values():
+            team_details = []
+            team_details.append(team.name)
+            team_details.append(team.icon)
+            score = team.total_score if round_number == -1 else team.get_round_score(round_number)
+            team_details.append(str(score))
+            all_team_details.append(team_details)
+
+        print(all_team_details)
+        sorted_details = sorted(all_team_details, key=lambda x: x[2], reverse=True)
+        print(sorted_details)
+        sorted_details[0][1]  = "crown"
+        sorted_details[-1][1] = "poop"
+        print(sorted_details)
+        return sorted_details
 
     ### Game word control
         
@@ -151,9 +171,9 @@ class Team:
         self.name = name
         self.round_details = {}
         self.total_score = 0
+        self.icon = ""
 
-    def get_turn_score(self, round_number):
-        print(f"Turn details: {self.round_details}")
+    def get_round_score(self, round_number):
         return self.round_details[str(round_number)].score
     
     def add_round_details(self, round_number, turn: Turn):

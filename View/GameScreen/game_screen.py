@@ -12,6 +12,18 @@ class GameScreen(MDScreen):
     # If enabled then when a word is skipped, 5 (or other amount)
     # of seconds get removed from the timer
 
+    # TODO Add better handling for guess and skip buttons
+    # to not be able to misclick and to save words properly
+
+    # TODO Think about the way to end the game on the last word
+
+    # TODO Change button and label color to math theme
+
+    # TODO Make it so that the game buttons are not visible at start
+    # but appear after starting turn
+
+    # TODO Fix header formating to look better
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
@@ -125,7 +137,7 @@ class GameScreen(MDScreen):
     def show_turn_info(self):
         self.dialog.open()
     
-    def go_to_turn_statistics(self, instance_button):
-        print(self.app.game_manager.current_turn.all_words)
+    def go_to_turn_statistics(self, *args):
+        # print(self.app.game_manager.current_turn.all_words)
         self.dialog.dismiss()
         self.app.game_manager.after_game_screen()

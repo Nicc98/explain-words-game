@@ -1,6 +1,7 @@
 from kivymd.uix.screen import MDScreen
-from kivymd.uix.list import OneLineIconListItem
 from kivymd.app import MDApp
+
+from View.common.components.widget_templates import ScoreListItem
 
 class GameResultsScreen(MDScreen):
 
@@ -17,10 +18,12 @@ class GameResultsScreen(MDScreen):
     def continue_game(self):
         self.app.game_manager.after_game_results_screen()
 
+    # TODO Add team sorting in list by score
     def populate_game_results_list(self):
-        for team in self.app.game_manager.all_teams.values():
-            turn_score = OneLineIconListItem(
-                text = f"{team.name}: {team.total_score}",
-                text_color = "#ffffff"
+        for team in self.app.game_manager.get_sorted_teams():
+            turn_score = ScoreListItem(
+                text = team[0],
+                icon = team[1],
+                score = team[2]
             )
             self.ids.game_results_list.add_widget(turn_score)

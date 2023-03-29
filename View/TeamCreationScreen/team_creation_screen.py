@@ -16,7 +16,7 @@ class TeamCreationScreen(MDScreen):
             self.app.game_manager.after_team_creation_screen()
         else:
             print("Not enough teams added!")
-        # TODO add error message saying that at least 1 team needs to be added
+        # TODO Add error message saying that at least 1 team needs to be added
 
     def add_team(self):
         team_name = self.ids.team_name_input.text
