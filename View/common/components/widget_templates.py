@@ -76,13 +76,16 @@ class TeamListItem(OneLineAvatarIconListItem):
 
 class ScoreListItem(OneLineAvatarIconListItem):
     text = StringProperty()
-    icon = StringProperty() 
+    icon = StringProperty()
     score = StringProperty()
 
 class WordListItem(OneLineAvatarIconListItem):
     text = StringProperty()
-    guessed = BooleanProperty() 
+    guessed = BooleanProperty()
 
-    def on_switch_active(self, switch, value):
-        if value:
-            print(f"Switch {switch} is active")
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def on_switch_active(self, value):
+        app.game_manager.current_turn.edit_word(self.text, value)
+            

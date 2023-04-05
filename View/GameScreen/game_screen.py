@@ -28,6 +28,7 @@ class GameScreen(MDScreen):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
         self.game_ongoing = False
+        self.turn_timer = None
         self.counter = 0
         self.current_word = "- - -"
         self.dialog = MDDialog(
@@ -54,7 +55,10 @@ class GameScreen(MDScreen):
         self.ids.timer_label.text = "60"
         self.ids.timer_bar.value = 60
         self.ids.word_skipped_btn.disabled = False
-        self.ids.word_guessed_btn.disabled = False    
+        self.ids.word_guessed_btn.disabled = False
+
+    def on_leave(self, *args):
+        self.stop_turn_actions()
 
     ### Handle game updates
 
@@ -64,7 +68,7 @@ class GameScreen(MDScreen):
         # Start timer
         self.turn_timer = Clock.schedule_interval(self.update_turn, 0.1)
         # Disable elements
-        self.ids.bottom_layout.remove_widget(self.start_btn)        
+        self.ids.bottom_layout.remove_widget(self.start_btn)
 
     def update_turn(self, *args):
         if not self.game_ongoing: return
@@ -81,13 +85,14 @@ class GameScreen(MDScreen):
     def stop_turn_actions(self):
         self.ids.word_skipped_btn.disabled = True
         self.ids.word_guessed_btn.disabled = True
-        self.turn_timer.cancel()
+        if self.ids.bottom_layout.remove_widget: self.ids.bottom_layout.remove_widget(self.start_btn)
+        if self.turn_timer: self.turn_timer.cancel()
         self.game_ongoing = False
+        if self.ids.timer_bar.value <= 0: self.show_turn_info()
         self.ids.timer_label.text = "0"
         self.ids.timer_bar.value = 0
         self.ids.guess_word.text = "- - -"
         self.counter = 0
-        self.show_turn_info()
     
     # Handle timer elements
 
@@ -138,6 +143,5 @@ class GameScreen(MDScreen):
         self.dialog.open()
     
     def go_to_turn_statistics(self, *args):
-        # print(self.app.game_manager.current_turn.all_words)
         self.dialog.dismiss()
         self.app.game_manager.after_game_screen()

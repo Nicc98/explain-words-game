@@ -18,7 +18,6 @@ class GameResultsScreen(MDScreen):
     def continue_game(self):
         self.app.game_manager.after_game_results_screen()
 
-    # TODO Add team sorting in list by score
     def populate_game_results_list(self):
         for team in self.app.game_manager.get_sorted_teams():
             turn_score = ScoreListItem(

@@ -2,6 +2,7 @@ import random
 
 from kivymd.uix.screen import MDScreen
 from kivymd.app import MDApp
+from kivymd.toast import toast
 
 from View.common.components.widget_templates import TeamListItem
 
@@ -18,8 +19,7 @@ class TeamCreationScreen(MDScreen):
         if len(list(self.ids.team_list.children)) > 0:
             self.app.game_manager.after_team_creation_screen()
         else:
-            print("Not enough teams added!")
-        # TODO Add error message saying that at least 1 team needs to be added
+            toast('Jāpievieno vismaz 1 komanda!')
 
     def add_team(self):
         team_name = self.ids.team_name_input.text
@@ -29,4 +29,4 @@ class TeamCreationScreen(MDScreen):
         new_team = TeamListItem(text = team_name, icon = random_icon)
         self.ids.team_list.add_widget(new_team)
         self.ids.team_name_input.text = ''
-        self.app.game_manager.add_team(team_name)
+        self.app.game_manager.add_team(team_name, random_icon)

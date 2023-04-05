@@ -5,23 +5,58 @@
 
     MainBox:
         
-        TopBoxV:
+        TopBoxH:
 
-            TopLeftButton:
-                icon: 'close'
-                on_press: app.root.go_to("Home", "right")
+            MDBoxLayout:
+                size_hint_x: 0.1
+                orientation: 'vertical'
 
-            HeaderLabel:
-                id: header_label
-                text: ""
+                canvas.before:
+                    Color:
+                        rgba: 1, 0, 0, 0.3
 
-            SubHeaderLabel:
-                text: "Komanda:"
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
 
-            TextLabel:
-                id: team_label
-                text: ""
-                font_size: 32
+                TopLeftButton:
+                    icon: 'close'
+                    on_press: app.root.go_to("Home", "right")
+                    pos_hint: {"right": 1, "top": 1}
+            
+            MDBoxLayout:
+                size_hint_x: 0.8
+                orientation: 'vertical'
+                spacing: "5dp"
+
+                HeaderLabel:
+                    id: header_label
+                    text: ""
+
+                SubHeaderLabel:
+                    text: "Komanda:"
+
+                TextLabel:
+                    id: team_label
+                    text: ""
+                    font_size: 32
+            
+            MDBoxLayout:
+                size_hint_x: 0.1
+                orientation: 'vertical'
+
+                canvas.before:
+                    Color:
+                        rgba: 1, 0, 0, 0.3
+
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+                TopLeftButton:
+                    icon: 'fast-forward-outline'
+                    on_press: root.go_to_turn_statistics()
+                    pos_hint: {"right": 1, "top": 1}
 
         MiddleBoxH:
 

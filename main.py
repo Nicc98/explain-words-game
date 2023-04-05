@@ -4,7 +4,6 @@ from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.core.window import Window
 from kivymd.icon_definitions import md_icons
-from kivymd.font_definitions import theme_font_styles
 
 from View.AppLayout.app_layout import AppLayout
 from View.common.helpers.storage_manager import StorageManager
@@ -30,8 +29,6 @@ class ExplainWordsGame(MDApp):
             "telegraf-light": "assets/fonts/telegraf-light.otf",
             "telegraf-bold":  "assets/fonts/telegraf-bold.otf"
         }
-        # md_icons["crown"] = "U+1F451"
-        # md_icons["poop"] = "U+1F4A9"
         self.icons = list(md_icons.keys())
         # Logic / App
         self.storage_manager = StorageManager()

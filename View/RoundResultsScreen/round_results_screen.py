@@ -5,8 +5,6 @@ from View.common.components.widget_templates import ScoreListItem
 
 class RoundResultsScreen(MDScreen):
 
-    # TODO Fix icon showing here and in game results screen
-    
     # TODO Maybe think about adding animations to make results more exciting
     
     def __init__(self, *args, **kwargs):
@@ -23,7 +21,6 @@ class RoundResultsScreen(MDScreen):
     def continue_game(self):
         self.app.game_manager.after_round_results_screen()
 
-    # TODO Add team sorting in list by score
     def populate_round_results_list(self):
         round_number = self.app.game_manager.round_number
         for team in self.app.game_manager.get_sorted_teams(round_number):

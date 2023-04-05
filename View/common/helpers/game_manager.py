@@ -1,18 +1,14 @@
 from kivymd.app import MDApp
+from kivymd.toast import toast
 
 import random
-
-GAME_WORDS = [
-    "Abols", "Kaposts", "Pica", "Saldejums",
-    "Burgers", "Burrito", "Zupa", "Sacepums"
-]
 
 class GameManager:
     '''Manage the game, teams, rounds and game words.'''
 
     def __init__(self) -> None:
         self.app = MDApp.get_running_app()
-        self.all_words = GAME_WORDS.copy()
+        self.all_words = []
         self.played_words = []
         self.max_rounds = 4
         self.all_teams = {}
@@ -20,6 +16,8 @@ class GameManager:
         self.team_index = 0
         self.current_team = None
         self.current_turn = None
+        self.adult_mode = False
+        self.reset_words()
 
     ### Game control
 
@@ -33,23 +31,17 @@ class GameManager:
                 team.reset_score()
         else:
             self.all_teams = {}
-        self.all_words = GAME_WORDS.copy()
+        self.reset_words()
         self.played_words = []
         self.round_number = 1
         self.team_index = 0
         self.current_team = None
         self.current_turn = None
 
-    def next_turn(self):
-        self.current_team = self.get_team_by_index(self.team_index)
-        self.current_turn = Turn(self.round_number)
-        # Remove this after testing / getting more words
-        self.all_words = GAME_WORDS.copy()
-
     def next_round(self):
         self.round_number += 1
         self.team_index = 0
-        self.next_turn()
+        self.new_game()
 
     # After screen actions
 
@@ -69,7 +61,7 @@ class GameManager:
         if self.team_index >= len(self.all_teams):
             target_screen = "Round Results"
         else:
-            self.next_turn()
+            self.new_game()
         self.app.root.go_to(target_screen)
 
     def after_round_results_screen(self):
@@ -85,8 +77,8 @@ class GameManager:
 
     ### Team control
 
-    def add_team(self, team_name: str):
-        self.all_teams[team_name] = Team(team_name)
+    def add_team(self, team_name: str, icon: str = ''):
+        self.all_teams[team_name] = Team(team_name, icon)
 
     def remove_team(self, team_name: str):
         del self.all_teams[team_name]
@@ -97,7 +89,6 @@ class GameManager:
             return all_teams[team_index]
         else:
             print(f"Team index out of bounds: '{self.team_index}'")
-            # TODO Maybe just return team with index 0 to simplify the loop
             return None
 
     def get_team_by_name(self, team_name: str):
@@ -113,12 +104,7 @@ class GameManager:
             team_details.append(str(score))
             all_team_details.append(team_details)
 
-        print(all_team_details)
         sorted_details = sorted(all_team_details, key=lambda x: x[2], reverse=True)
-        print(sorted_details)
-        sorted_details[0][1]  = "crown"
-        sorted_details[-1][1] = "poop"
-        print(sorted_details)
         return sorted_details
 
     ### Game word control
@@ -129,8 +115,11 @@ class GameManager:
             if remove_word: self.all_words.remove(chosen_word)
             return chosen_word
         else:
-            print("Out of words!")
+            toast('Visi vārdi izspēlēti!')
             return -1
+        
+    def reset_words(self):
+        self.all_words = self.app.storage_manager.get_game_words(self.adult_mode)
 
 ### Turn
 
@@ -154,24 +143,38 @@ class Turn:
         elif not guessed and word not in self.skipped_words:
             self.skipped_words.append(word)
 
-    def edit_words(self, edited_words: list):
-        for index, edited_word in enumerate(edited_words):
-            if self.all_words[index] != edited_word:
-                self.all_words[index] = edited_word
+    def edit_word(self, word: str, guessed: bool):
+        # Edit all words list
+        for idx, word_pair in enumerate(self.all_words):
+            if word in word_pair:
+                self.all_words[idx][1] = guessed
+                break
+
+        # Edit guessed/skipped lists
+        if guessed:
+            index = self.skipped_words.index(word)
+            del self.skipped_words[index]
+            self.guessed_words.append(word)
+            self.score += 1
+        else:
+            index = self.guessed_words.index(word)
+            del self.guessed_words[index]
+            self.skipped_words.append(word)
+            self.score -= 1
 
     def get_all_words(self):
-        return map(lambda x: x[0], self.all_words)
+        return [x[0] for x in self.all_words]
 
 ### Team
 
 class Team:
     '''Represents a single team.'''
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, icon: str = ''):
         self.name = name
         self.round_details = {}
         self.total_score = 0
-        self.icon = ""
+        self.icon = icon
 
     def get_round_score(self, round_number):
         return self.round_details[str(round_number)].score

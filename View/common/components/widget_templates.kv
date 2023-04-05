@@ -152,6 +152,7 @@
         pos_hint: {"center_y": 0.5, "right": 1}
 
 <WordListItem>:
+    id: self.id
     text: self.text
     theme_text_color: 'Custom'
     text_color: app.theme_cls.primary_light
@@ -167,4 +168,4 @@
         thumb_color_active: app.theme_cls.primary_color
         thumb_color_inactive: "brown"
         pos_hint: {'center_y': 0.5, 'right': 0.9}
-        on_active: root.on_switch_active
+        on_active: root.on_switch_active(self.active)
