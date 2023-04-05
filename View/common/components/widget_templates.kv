@@ -11,16 +11,31 @@
     spacing: "10dp"
 
 # Top part container - Vertical
-<TopBoxV>:
+<TopBoxMainV>:
     size_hint_y: 0.15
     orientation: 'vertical'
     spacing: "10dp"
     spacing: "10dp"
 
 # Top part container - Horizontal
-<TopBoxH>:
+<TopBoxMainH>:
     size_hint_y: 0.15
     orientation: 'horizontal'
+    spacing: "10dp"
+    spacing: "10dp"
+
+# Top part container - Vertical
+<TopBoxSideV>:
+    size_hint: 0.1, 0.33
+    pos_hint: {"top": 1}
+    orientation: 'vertical'
+    spacing: "10dp"
+    spacing: "10dp"
+
+# Top part container - Vertical
+<TopBoxMiddleV>:
+    size_hint_x: 0.8
+    orientation: 'vertical'
     spacing: "10dp"
     spacing: "10dp"
 
@@ -64,16 +79,41 @@
     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
     font_size: 48
     line_width: 2
-    font_name: app.fonts["telegraf"]
 
 <TopLeftButton>:
     icon: self.icon
     theme_text_color: "Custom"
     text_color: app.theme_cls.accent_color
     icon_color: app.theme_cls.accent_color
-    md_bg_color: 0, 0, 0, .2
     user_font_size: 32
-    pos_hint: {"center_y": 0.5, "left": 1}
+    pos_hint: {"center_y": 0.5, "center_x": 0.5}
+
+<TopRightButton>:
+    icon: self.icon
+    theme_text_color: "Custom"
+    icon_color: app.theme_cls.accent_color
+    user_font_size: 32
+    pos_hint: {"center_y": 0.5, "center_x": 0.5}
+
+<SkipButton>:
+    icon: self.icon
+    theme_text_color: "Custom"
+    icon_color: app.theme_cls.primary_light
+    md_bg_color: app.theme_cls.primary_dark
+    user_font_size: 32
+    bold: True
+    pos_hint: {"center_x": 0.25, "center_y": 0.5}
+    size_hint: 0.5, 0.5
+
+<GuessButton>:
+    icon: self.icon
+    theme_text_color: "Custom"
+    icon_color: app.theme_cls.accent_light
+    md_bg_color: app.theme_cls.accent_dark
+    user_font_size: 32
+    bold: True
+    pos_hint: {"center_x": 0.25, "center_y": 0.5}
+    size_hint: 0.5, 0.5
 
 ###
 # Labels

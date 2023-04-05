@@ -5,15 +5,28 @@
 
     MainBox:
 
-        TopBoxV:
+        TopBoxMainH:
 
-            TopLeftButton:
-                icon: 'close'
-                on_press: app.root.go_to("Home", "right")
+            TopBoxSideV:
 
-            HeaderLabel:
-                id: header_label
-                text: ""
+                TopLeftButton:
+                    icon: 'close'
+                    on_press: app.root.go_to("Home", "right")
+            
+            TopBoxMiddleV:
+
+                HeaderLabel:
+                    id: header_label
+                    text: ""
+                
+                SubHeaderLabel:
+                    text: ""
+
+                TextLabel:
+                    text: ""
+                    font_size: 40
+            
+            TopBoxSideV:
 
         MiddleBoxV:
 

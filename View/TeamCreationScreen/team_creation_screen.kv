@@ -5,14 +5,27 @@
 
     MainBox:
         
-        TopBoxV:
+        TopBoxMainH:
 
-            TopLeftButton:
-                icon: 'arrow-left'
-                on_press: app.root.go_to("Home", "right")
+            TopBoxSideV:
 
-            HeaderLabel:
-                text: "Izveido komandas:"
+                TopLeftButton:
+                    icon: 'arrow-left'
+                    on_press: app.root.go_to("Home", "right")
+            
+            TopBoxMiddleV:
+
+                HeaderLabel:
+                    text: "Izveido komandas"
+                
+                SubHeaderLabel:
+                    text: ""
+
+                TextLabel:
+                    text: ""
+                    font_size: 40
+            
+            TopBoxSideV:
 
         MiddleBoxV:
 

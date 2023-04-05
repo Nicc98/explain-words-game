@@ -15,10 +15,16 @@ app = MDApp.get_running_app()
 class MainBox(MDBoxLayout):
     pass
 
-class TopBoxV(MDBoxLayout):
+class TopBoxMainV(MDBoxLayout):
     pass
 
-class TopBoxH(MDBoxLayout):
+class TopBoxMainH(MDBoxLayout):
+    pass
+
+class TopBoxSideV(MDBoxLayout):
+    pass
+
+class TopBoxMiddleV(MDBoxLayout):
     pass
 
 class MiddleBoxV(MDBoxLayout):
@@ -41,6 +47,15 @@ class RoundTextButton(MDRoundFlatButton):
     pass
 
 class TopLeftButton(MDIconButton):
+    pass
+
+class TopRightButton(MDIconButton):
+    pass
+
+class SkipButton(MDIconButton):
+    pass
+
+class GuessButton(MDIconButton):
     pass
 
 ###

@@ -12,6 +12,7 @@ class GameScreen(MDScreen):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
         self.game_ongoing = False
+        self.game_played = False
         self.turn_timer = None
         self.counter = 0
         self.current_word = "- - -"
@@ -48,6 +49,7 @@ class GameScreen(MDScreen):
 
     def start_turn(self, instance_btn):
         self.game_ongoing = True
+        self.game_played = True
         self.show_new_word()
         # Start timer
         self.turn_timer = Clock.schedule_interval(self.update_turn, 0.1)
@@ -67,6 +69,7 @@ class GameScreen(MDScreen):
         self.handle_timer_bar(current_time)
 
     def stop_turn_actions(self):
+        if not self.game_played: return
         self.ids.word_skipped_btn.disabled = True
         self.ids.word_guessed_btn.disabled = True
         if self.ids.bottom_layout.remove_widget: self.ids.bottom_layout.remove_widget(self.start_btn)

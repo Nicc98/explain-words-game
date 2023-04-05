@@ -5,29 +5,15 @@
 
     MainBox:
         
-        TopBoxH:
+        TopBoxMainH:
 
-            MDBoxLayout:
-                size_hint_x: 0.1
-                orientation: 'vertical'
-
-                canvas.before:
-                    Color:
-                        rgba: 1, 0, 0, 0.3
-
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
+            TopBoxSideV:
 
                 TopLeftButton:
                     icon: 'close'
                     on_press: app.root.go_to("Home", "right")
-                    pos_hint: {"right": 1, "top": 1}
             
-            MDBoxLayout:
-                size_hint_x: 0.8
-                orientation: 'vertical'
-                spacing: "5dp"
+            TopBoxMiddleV:
 
                 HeaderLabel:
                     id: header_label
@@ -39,24 +25,13 @@
                 TextLabel:
                     id: team_label
                     text: ""
-                    font_size: 32
+                    font_size: 40
             
-            MDBoxLayout:
-                size_hint_x: 0.1
-                orientation: 'vertical'
+            TopBoxSideV:
 
-                canvas.before:
-                    Color:
-                        rgba: 1, 0, 0, 0.3
-
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
-
-                TopLeftButton:
+                TopRightButton:
                     icon: 'fast-forward-outline'
                     on_press: root.go_to_turn_statistics()
-                    pos_hint: {"right": 1, "top": 1}
 
         MiddleBoxH:
 
@@ -68,6 +43,7 @@
             MDBoxLayout:
                 orientation: 'vertical'
                 spacing: "10dp"
+                padding: "10dp"
 
                 # Game card
                 MDBoxLayout:
@@ -77,11 +53,9 @@
 
                     MDCard:
 
-                        MDLabel:
+                        TextLabel:
                             id: guess_word
                             text: root.current_word
-                            halign: 'center'
-                            valign: 'center'
                             font_size: 64
                             bold: True
 
@@ -91,41 +65,27 @@
                     spacing: "10dp"
                     pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
-                    MDRoundFlatButton:
+                    SkipButton:
                         id: word_skipped_btn
-                        text: "IZLAIST"
-                        font_size: 32
-                        line_width: 2
-                        text_color: "#FF0000"
-                        line_color: "#FF0000"
-                        pos_hint: {"center_x": 0.25, "center_y": 0.5}
-                        size_hint: 0.5, 0.5
+                        icon: "close"
                         on_release: root.skip_word()
 
-                    MDRoundFlatButton:
+                    GuessButton:
                         id: word_guessed_btn
-                        text: "UZMINĒT"
-                        font_size: 32
-                        line_width: 2
-                        text_color: "#00FF00"
-                        line_color: "#00FF00"
-                        pos_hint: {"center_x": 0.75, "center_y": 0.5}
-                        size_hint: 0.5, 0.5
+                        icon: "check"
                         on_release: root.guess_word()
                 
             # Time progress bar and label
             MDBoxLayout:
                 size_hint_x: 0.1
                 orientation: 'vertical'
+                spacing: "10dp"
 
-                MDLabel:
+                TextLabel:
                     id: timer_label
                     size_hint_y: 0.1
                     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                     text: "60"
-                    # color: 
-                    halign: 'center'
-                    valign: 'center'
                     font_size: 32
                     bold: True
 
