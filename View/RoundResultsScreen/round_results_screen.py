@@ -4,8 +4,6 @@ from kivymd.app import MDApp
 from View.common.components.widget_templates import ScoreListItem
 
 class RoundResultsScreen(MDScreen):
-
-    # TODO Maybe think about adding animations to make results more exciting
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

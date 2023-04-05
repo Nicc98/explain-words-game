@@ -8,9 +8,6 @@ from View.common.components.widget_templates import TeamListItem
 
 class TeamCreationScreen(MDScreen):
 
-    # TODO Maybe add hard mode toggle and time changer in this screen
-    # or add a new screen for that after this screen
-
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.app = MDApp.get_running_app()
